@@ -11,7 +11,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><h3 class="panel-title">Introduction</h3></div>
                 <div class="panel-body">
-                    <p>Welcome to {{ Config::get('app.site_brand') }}.</p>
+                    <p>Welcome to {{ Config::get('brand.site_brand') }}.</p>
                 </div>
             </div>
         </div>

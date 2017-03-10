@@ -7,7 +7,7 @@
     <!--===================================================-->
     <div id="page-content">
 
-        <main id="{{ FnView::getUniquePageId() }}" roll="main">
+        <main id="{{ Route::currentRouteName() }}" roll="main">
             <div class="content">
                 @yield('content')
             </div>

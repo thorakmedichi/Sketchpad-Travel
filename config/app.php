@@ -183,6 +183,11 @@ return [
          */
         HttpOz\Roles\RolesServiceProvider::class, 
 
+        /*
+         * Custom Service Providers...
+         */
+        App\Providers\HelperServiceProvider::class,
+
     ],
 
     /*
@@ -232,6 +237,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /*
+         * Custom Service Providers...
+         */
+        'Form' => App\SketchpadForms\Form::class,
     ],
 
 ];

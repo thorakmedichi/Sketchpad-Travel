@@ -17,7 +17,7 @@
  */
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 /* --------------------------------------------
  * Authentication routes
@@ -37,6 +37,6 @@ Route::group([
 	
 		Route::get('/', function(){
 			// Main dashboard landing page
-		});
+		})->name('dashboard');
 });
 

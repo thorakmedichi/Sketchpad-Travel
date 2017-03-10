@@ -7,9 +7,9 @@
 		<!--================================-->
 		<div class="navbar-header">
 			<a href="{{ url('/') }}" class="navbar-brand">
-				<img src="{{ url('img/logo.png') }}" height="32" width="32" alt="{{ Config::get('app.admin_brand') }} Logo" class="brand-icon">
+				<img src="{{ url('img/logo.png') }}" height="32" width="32" alt="{{ Config::get('brand.admin_brand') }} Logo" class="brand-icon">
 				<div class="brand-title">
-					<span class="brand-text">{{ Config::get('app.admin_brand') }}</span>
+					<span class="brand-text">{{ Config::get('brand.admin_brand') }}</span>
 				</div>
 			</a>
 		</div>
@@ -42,18 +42,6 @@
 				@if (!Auth::check())
 					<li><a href="{{ url('/login') }}">Login</a></li>
 				@else
-
-					@if(Entrust::hasRole('admin'))
-					<li class="dropdown">
-						<a id="manageMenu" class="dropdown-toggle" data-toggle="dropdown" href="#">Administration<b class="caret"></b></a>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="manageMenu">
-							<li class="{{ (Request::is('*users*') ? 'active' : '') }}"><a href="{{ route('entrust-gui::users.index') }}">{{ trans('entrust-gui::navigation.users') }}</a></li>
-							<li class="{{ (Request::is('*roles*') ? 'active' : '') }}"><a href="{{ route('entrust-gui::roles.index') }}">{{ trans('entrust-gui::navigation.roles') }}</a></li>
-							<!--<li class="{{ (Request::is('*permissions*') ? 'active' : '') }}"><a href="{{ route('entrust-gui::permissions.index') }}">{{ trans('entrust-gui::navigation.permissions') }}</a></li>-->
-						</ul>
-					</li>
-					@endif
-
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 							{{ Auth::user()->name }} <span class="caret"></span>
