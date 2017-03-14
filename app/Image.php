@@ -15,4 +15,8 @@ class Image extends Model
     public function Trips(){
     	return $this->belongsToMany(Trip::class, 'trip_image');
     }
+
+    public function Author(){
+    	return $this->belongsTo(Author::class);
+    }
 }

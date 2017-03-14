@@ -25,4 +25,8 @@ class Author extends Model
     public function Locations(){
     	return $this->belongsToMany(Location::class, 'location_author')
     }
+
+    public function Image(){
+    	return $this->hasOne(Image::class);
+    }
 }
