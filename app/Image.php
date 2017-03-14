@@ -1,0 +1,18 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Image extends Model
+{
+    protected $gaurded = [];
+
+    public function Locations(){
+    	return $this->belongsToMany(Location::class, 'location_image');
+    }
+
+    public function Trips(){
+    	return $this->belongsToMany(Trip::class, 'trip_image');
+    }
+}

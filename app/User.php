@@ -30,5 +30,7 @@ class User extends Authenticatable implements HasRoleContract
         'password', 'remember_token',
     ];
 
-    
+    public function Author(){
+        return $this->hasOne(Author::class);
+    }
 }
