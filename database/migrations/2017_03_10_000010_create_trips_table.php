@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTripTable extends Migration
+class CreateTripsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateTripTable extends Migration
      */
     public function up()
     {
-        Schema::create('trip', function (Blueprint $table) {
+        Schema::create('trips', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('image_id')->unsigned()->nullable();
             $table->integer('map_id')->unsigned()->nullable();
@@ -23,8 +23,8 @@ class CreateTripTable extends Migration
             $table->integer('map_id1')->unsigned();
             $table->softDeletes();
 
-            $table->foreign('map_id')->references('id')->on('map')->onDelete('set null')->onUpdate('cascade');
-            $table->foreign('image_id')->references('id')->on('image')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('map_id')->references('id')->on('maps')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('set null')->onUpdate('cascade');
         });
     }
 
@@ -35,10 +35,10 @@ class CreateTripTable extends Migration
      */
     public function down()
     {
-        Schema::table('trip', function (Blueprint $table) {
-            $table->dropForeign(['map_id1']);
+        Schema::table('trips', function (Blueprint $table) {
+            $table->dropForeign(['map_id']);
         });
 
-        Schema::drop('trip');
+        Schema::drop('trips');
     }
 }

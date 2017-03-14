@@ -17,8 +17,8 @@ class CreateTripImageTable extends Migration
             $table->integer('image_id')->unsigned();
             $table->integer('order')->unsigned();
 
-            $table->foreign('trip_id')->references('id')->on('trip')->onDelete('cascade')->onUpdate('cascade'); // When trip is deleted delete all references in trip_image
-            $table->foreign('image_id')->references('id')->on('image')->onDelete('cascade')->onUpdate('cascade'); // When image is deleted delete all references in trip_image
+            $table->foreign('trip_id')->references('id')->on('trips')->onDelete('cascade')->onUpdate('cascade'); // When trip is deleted delete all references in trip_image
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade')->onUpdate('cascade'); // When image is deleted delete all references in trip_image
         });
     }
 

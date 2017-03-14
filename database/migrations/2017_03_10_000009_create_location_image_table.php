@@ -17,8 +17,8 @@ class CreateLocationImageTable extends Migration
             $table->integer('image_id')->unsigned();
             $table->tinyInteger('order');
 
-            $table->foreign('location_id')->references('id')->on('location')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('image_id')->references('id')->on('image')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

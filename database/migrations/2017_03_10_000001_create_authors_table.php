@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAuthorTable extends Migration
+class CreateAuthorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateAuthorTable extends Migration
      */
     public function up()
     {
-        Schema::create('author', function (Blueprint $table) {
+        Schema::create('authors', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('image_id')->unsigned()->nullable();
@@ -22,7 +22,7 @@ class CreateAuthorTable extends Migration
             $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade'); // When user is deleted delete the author as well
-            $table->foreign('image_id')->references('id')->on('image')->onDelete('set null')->onUpdate('cascade'); // When user is deleted set author.image_id to null
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('set null')->onUpdate('cascade'); // When user is deleted set author.image_id to null
         });
     }
 
@@ -33,6 +33,6 @@ class CreateAuthorTable extends Migration
      */
     public function down()
     {
-        Schema::drop('author');
+        Schema::drop('authors');
     }
 }

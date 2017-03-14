@@ -16,8 +16,8 @@ class CreateLocationAuthorTable extends Migration
             $table->integer('location_id')->unsigned();
             $table->integer('author_id')->unsigned();
 
-            $table->foreign('location_id')->references('id')->on('location')->onDelete('cascade')->onUpdate('cascade'); // If I delete a location delete all references to it in location_author
-            $table->foreign('author_id')->references('id')->on('author')->onDelete('cascade')->onUpdate('cascade'); // If I delete an author delete all references to it in location_author
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade')->onUpdate('cascade'); // If I delete a location delete all references to it in location_author
+            $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade')->onUpdate('cascade'); // If I delete an author delete all references to it in location_author
         });
     }
 

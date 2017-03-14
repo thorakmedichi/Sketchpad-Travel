@@ -16,8 +16,8 @@ class CreateLocationBlogTable extends Migration
             $table->integer('location_id')->unsigned();
             $table->integer('blog_id')->unsigned();
 
-            $table->foreign('location_id')->references('id')->on('location')->onDelete('cascade')->onUpdate('cascade'); // If I delete a location kill all references to it in this table
-            $table->foreign('blog_id')->references('id')->on('blog')->onDelete('cascade')->onUpdate('cascade'); // If I delete a blog kill all references to it in this table
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade')->onUpdate('cascade'); // If I delete a location kill all references to it in this table
+            $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade')->onUpdate('cascade'); // If I delete a blog kill all references to it in this table
         });
     }
 

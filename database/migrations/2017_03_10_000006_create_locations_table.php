@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLocationTable extends Migration
+class CreateLocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateLocationTable extends Migration
      */
     public function up()
     {
-        Schema::create('location', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('country_id')->unsigned();
             $table->integer('image_id')->unsigned()->nullable();
@@ -23,9 +23,9 @@ class CreateLocationTable extends Migration
             $table->mediumText('description')->nullable();
             $table->softDeletes();
 
-            $table->foreign('image_id')->references('id')->on('image')->onDelete('set null')->onUpdate('cascade'); // When image is deleted set location.image_id null
-            $table->foreign('country_id')->references('id')->on('country')->onDelete('cascade')->onUpdate('cascade'); // When country is deleted remove the location as well
-            $table->foreign('map_id')->references('id')->on('map')->onDelete('set null')->onUpdate('cascade'); // When map is deleted set location.map_id null
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('set null')->onUpdate('cascade'); // When image is deleted set location.image_id null
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade')->onUpdate('cascade'); // When country is deleted remove the location as well
+            $table->foreign('map_id')->references('id')->on('maps')->onDelete('set null')->onUpdate('cascade'); // When map is deleted set location.map_id null
         });
     }
 
@@ -36,11 +36,12 @@ class CreateLocationTable extends Migration
      */
     public function down()
     {
-        Schema::table('location', function (Blueprint $table) {
+        Schema::table('locations', function (Blueprint $table) {
             $table->dropForeign(['image_id']);
             $table->dropForeign(['country_id']);
+            $table->dropForeign(['map_id']);
         });
 
-        Schema::drop('location');
+        Schema::drop('locations');
     }
 }

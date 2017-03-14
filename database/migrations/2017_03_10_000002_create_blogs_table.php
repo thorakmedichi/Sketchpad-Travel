@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBlogTable extends Migration
+class CreateBlogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateBlogTable extends Migration
      */
     public function up()
     {
-        Schema::create('blog', function (Blueprint $table) {
+        Schema::create('blogs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('author_id')->unsigned();
             $table->enum('status', ['published', 'draft'])->nullable();
@@ -21,7 +21,7 @@ class CreateBlogTable extends Migration
             $table->longText('content')->nullable();
             $table->softDeletes();
 
-            $table->foreign('author_id')->references('id')->on('author')->onDelete('cascade')->onUpdate('cascade'); // When author is deleted delete all blogs owned by them
+            $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade')->onUpdate('cascade'); // When author is deleted delete all blogs owned by them
         });
 
         
@@ -34,10 +34,10 @@ class CreateBlogTable extends Migration
      */
     public function down()
     {
-        Schema::table('blog', function (Blueprint $table) {
+        Schema::table('blogs', function (Blueprint $table) {
             $table->dropForeign(['author_id']);
         });
 
-        Schema::drop('blog');
+        Schema::drop('blogs');
     }
 }

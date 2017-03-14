@@ -18,7 +18,7 @@ class CreateTagRelationTable extends Migration
             $table->integer('related_id')->unsigned();
             $table->enum('type', ['image', 'trip', 'location', 'blog']);
 
-            $table->foreign('tag_id')->references('id')->on('tag')->onDelete('cascade')->onUpdate('cascade'); // When tag is deleted delete all references in tag_relation
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade')->onUpdate('cascade'); // When tag is deleted delete all references in tag_relation
         });
     }
 

@@ -16,8 +16,8 @@ class CreateTripAuthorTable extends Migration
             $table->integer('trip_id')->unsigned();
             $table->integer('author_id')->unsigned();
 
-            $table->foreign('trip_id')->references('id')->on('trip')->onDelete('cascade')->onUpdate('cascade'); // When trip is deleted delete all references in trip_author
-            $table->foreign('author_id')->references('id')->on('author')->onDelete('cascade')->onUpdate('cascade'); // When author is deleted delete all references in trip_author
+            $table->foreign('trip_id')->references('id')->on('trips')->onDelete('cascade')->onUpdate('cascade'); // When trip is deleted delete all references in trip_author
+            $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade')->onUpdate('cascade'); // When author is deleted delete all references in trip_author
         });
     }
 

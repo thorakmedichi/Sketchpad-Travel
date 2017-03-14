@@ -16,8 +16,8 @@ class CreateTripLocationTable extends Migration
             $table->integer('trip_id')->unsigned();
             $table->integer('location_id')->unsigned();
 
-            $table->foreign('trip_id')->references('id')->on('trip')->onDelete('cascade')->onUpdate('cascade'); // When trip is deleted delete all references in trip_location
-            $table->foreign('location_id')->references('id')->on('location')->onDelete('cascade')->onUpdate('cascade'); // When location is deleted delete all references in trip_location
+            $table->foreign('trip_id')->references('id')->on('trips')->onDelete('cascade')->onUpdate('cascade'); // When trip is deleted delete all references in trip_location
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade')->onUpdate('cascade'); // When location is deleted delete all references in trip_location
         });
     }
 
