@@ -24,7 +24,7 @@ class CreateAuthorsTable extends Migration
             $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade'); // When user is deleted delete the author as well
-            $table->foreign('image_id')->references('id')->on('images')->onDelete('set null')->onUpdate('cascade'); // When user is deleted set author.image_id to null
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('set null')->onUpdate('cascade'); // When image is deleted set author.image_id to null
         });
     }
 

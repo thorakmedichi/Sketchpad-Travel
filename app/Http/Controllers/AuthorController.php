@@ -61,7 +61,10 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+        $data = [
+            'authors' => $author
+        ];
+        return view('admin.content.author.create', $data);
     }
 
     /**
