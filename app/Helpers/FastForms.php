@@ -4,14 +4,14 @@ namespace App\Sketchpad;
 
 class FastForms {
 
-    public static function generate($table, $errors, $ignoreGaurded = true){
+    public static function generate($table, $action, $errors, $ignoreGaurded = true){
         if (empty($table)){
             throw new Exception("You must provide a database table name", 1);
         }
 
         $fields = self::getDatabaseFields($table, $ignoreGaurded);
         
-        self::generateHTML($fields, $errors);
+        self::generateHTML($fields, $action, $errors);
     }
 
     public static function getDatabaseFields($table, $ignoreGaurded){
@@ -41,14 +41,17 @@ class FastForms {
         return $fields;
     }
 
-    public static function generateHTML($fields, $errors){
+    public static function generateHTML($fields, $action, $errors){
+
+        echo '<form class="form-horizontal" role="form" method="POST" action="'. $action .'">'. csrf_field() ;
+                        
         foreach ($fields as $field => $settings){
             if (strpos($settings['type'], 'varchar') !== false){
-                self::formInput('text', $field, ucfirst($field), '', $errors);
+                self::formInput('text', $field, ucfirst($field), 'pencil', $errors);
             }
 
             if (strpos($settings['type'], 'int') !== false){
-                self::formInput('text', $field, ucfirst($field), '', $errors);
+                self::formInput('text', $field, ucfirst($field), 'pencil', $errors);
             }
 
             if (strpos($settings['type'], 'enum') !== false){
@@ -60,13 +63,20 @@ class FastForms {
                     $options[$match] = ucfirst($match);
                 }
 
-                self::formSelect($field, ucfirst($field), '', $options, $errors);
+                self::formSelect($field, ucfirst($field), 'pencil', $options, $errors);
             }
 
             if (strpos($settings['type'], 'text') !== false){
-                self::formTextarea($field, ucfirst($field), '', $errors);
+                self::formTextarea($field, ucfirst($field), 'pencil', $errors);
             }
         }
+
+        echo '<div class="form-group">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary btn-labeled fa fa-floppy-o pull-right">Add</button>
+                    </div>
+                </div>
+            </form>';
     }
 
     /**

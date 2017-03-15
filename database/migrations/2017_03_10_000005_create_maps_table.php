@@ -17,6 +17,7 @@ class CreateMapsTable extends Migration
             $table->string('klm_file', 256)->nullable();
             $table->decimal('sw_bounds', 9, 6)->nullable();
             $table->decimal('ne_bounds', 9, 6)->nullable();
+            $table->timestamps();
             $table->softDeletes();
         });
     }

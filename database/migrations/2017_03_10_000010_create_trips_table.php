@@ -21,6 +21,7 @@ class CreateTripsTable extends Migration
             $table->date('end_date');
             $table->mediumText('description')->nullable();
             $table->integer('map_id1')->unsigned();
+            $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('map_id')->references('id')->on('maps')->onDelete('set null')->onUpdate('cascade');

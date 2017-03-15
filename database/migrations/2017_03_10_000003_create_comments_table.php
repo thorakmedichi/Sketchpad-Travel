@@ -20,6 +20,7 @@ class CreateCommentsTable extends Migration
             $table->integer('ip')->unsigned()->nullable();
             $table->enum('parent', ['trip', 'location', 'blog', 'image']);
             $table->integer('parent_id')->unsigned();
+            $table->timestamps();
         });
     }
 

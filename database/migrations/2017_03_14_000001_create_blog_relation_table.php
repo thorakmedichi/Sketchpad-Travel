@@ -31,7 +31,6 @@ class CreateBlogRelationTable extends Migration
     public function down()
     {
         Schema::table('blog_relation', function (Blueprint $table) {
-            $table->dropForeign(['relation_id']);
             $table->dropForeign(['blog_id']);
         });
 

@@ -33,8 +33,6 @@
 				<!--End Navigation toogle button-->
 			</ul>
 
-			<h1 class="page-header">@yield('title')</h1>
-
 			@endif
 
 			<ul class="nav navbar-top-links pull-right">

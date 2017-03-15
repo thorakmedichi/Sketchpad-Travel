@@ -19,6 +19,7 @@ class CreateBlogsTable extends Migration
             $table->string('title', 255);
             $table->text('excerpt')->nullable();
             $table->longText('content')->nullable();
+            $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade')->onUpdate('cascade'); // When author is deleted delete all blogs owned by them

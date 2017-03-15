@@ -21,6 +21,7 @@ class CreateLocationsTable extends Migration
             $table->decimal('lng', 8, 6);
             $table->string('name', 100);
             $table->mediumText('description')->nullable();
+            $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('image_id')->references('id')->on('images')->onDelete('set null')->onUpdate('cascade'); // When image is deleted set location.image_id null

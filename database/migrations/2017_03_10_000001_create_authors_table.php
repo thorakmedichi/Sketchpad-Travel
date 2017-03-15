@@ -19,6 +19,7 @@ class CreateAuthorsTable extends Migration
             $table->string('email', 100)->nullable();
             $table->mediumText('bio')->nullable();
             $table->smallInteger('age')->nullable();
+            $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade'); // When user is deleted delete the author as well

@@ -30,15 +30,15 @@ Auth::routes();
  * Admin only routes
  * --------------------------------------------
  */
-Route::group([
-	'prefix' => '/admin', 
-    'as' => 'admin::',
-    'middleware' => ['auth'] 
-    ], function(){
+Route::prefix('/admin')
+	->as('admin.')
+	->middleware('auth')
+	->group(function(){
 
-		Route::get('/', function(){
-			// Main dashboard landing page
-		})->name('dashboard');
+		Route::name('dashboard')
+			->get('/', function(){
+				// Main dashboard landing page
+		});
 
-		Route::get('/author', 'AuthorController@index')->name('author');
+		Route::resource('/author', 'AuthorController');
 });

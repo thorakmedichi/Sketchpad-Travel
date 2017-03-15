@@ -11,7 +11,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><h3 class="panel-title">Introduction</h3></div>
                 <div class="panel-body">
-                    {{ App\Sketchpad\FastForms::generate('authors', $errors) }}
+                    {{ App\Sketchpad\FastForms::generate('authors', route('admin.author.store'), $errors) }}
                 </div>
             </div>
         </div>
