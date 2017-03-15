@@ -11,32 +11,32 @@
 
     <title>{{ Config::get('brand.admin_brand')  }} | @yield('title')</title>
 
-    @include('layouts.head.css')
-    @include('layouts.head.scripts')
+    @include('admin.head.css')
+    @include('admin.head.scripts')
 
 </head>
 <body id="app-layout">
     <div id="container" class="effect mainnav-sm footer-fixed">
    
-        @include('layouts.header.navigation')
+        @include('admin.header.navigation')
 
         <div class="boxed">
 
-            @include('layouts.content.content')
+            @include('admin.content.content')
             
             @if (Auth::check())
-                @include('layouts.sidebar.navigation')
-                @include('layouts.sidebar.aside')  
+                @include('admin.sidebar.navigation')
+                @include('admin.sidebar.aside')  
             @endif          
 
         </div>
 
-        @include('layouts.footer.footer')
+        @include('admin.footer.footer')
 
         <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
 
     </div>
 
-    @include('layouts.footer.scripts')
+    @include('admin.footer.scripts')
 </body>
 </html>

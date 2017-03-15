@@ -1,10 +1,10 @@
-@extends('layouts.wrapper')
+@extends('front.wrapper')
 
 {{-- Web site Title --}}
-@section('title', 'Dashboard')
+@section('title', 'Welcome')
 
 
-@section('content')
+{{-- @section('content')
 <div id="page-content">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -16,4 +16,4 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection --}}

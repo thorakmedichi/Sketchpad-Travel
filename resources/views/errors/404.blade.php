@@ -1,4 +1,4 @@
-@extends('layouts.wrapper')
+@extends('front.wrapper')
 
 {{-- Web site Title --}}
 @section('title', '404 page not found')

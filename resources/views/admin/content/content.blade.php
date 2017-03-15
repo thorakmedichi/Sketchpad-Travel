@@ -1,7 +1,7 @@
 <!--CONTENT CONTAINER-->
 <!--===================================================-->
 <div id="content-container">
-    @include('layouts.content.page-alerts')
+    @include('admin.content.page-alerts')
 
     <!--Page content-->
     <!--===================================================-->

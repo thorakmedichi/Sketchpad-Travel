@@ -1,4 +1,4 @@
-@extends('layouts.wrapper')
+@extends('admin.wrapper')
 
 {{-- Web site Title --}}
 @section('title', 'Dashboard')

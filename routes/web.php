@@ -16,7 +16,7 @@
  * --------------------------------------------
  */
 Route::get('/', function () {
-    return view('welcome');
+    return view('front.welcome');
 })->name('home');
 
 
@@ -35,11 +35,10 @@ Route::group([
     'as' => 'admin::',
     'middleware' => ['auth'] 
     ], function(){
-	
+
 		Route::get('/', function(){
 			// Main dashboard landing page
 		})->name('dashboard');
 
 		Route::get('/author', 'AuthorController@index')->name('author');
 });
-
