@@ -36,9 +36,7 @@ Route::prefix('/admin')
 	->group(function(){
 
 		Route::name('dashboard')
-			->get('/', function(){
-				// Main dashboard landing page
-		});
+			->get('/', function(){  });
 
 		Route::resource('/author', 'AuthorController');
 });

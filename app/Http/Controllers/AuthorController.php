@@ -13,8 +13,11 @@ class AuthorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('admin.author');
+    {   
+        $data = [
+            'authors' => Author::get()
+        ];
+        return view('admin.content.author.index', $data);
     }
 
     /**
@@ -24,7 +27,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        return view('admin.author');
+        return view('admin.content.author.create');
     }
 
     /**
@@ -36,7 +39,7 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         Author::firstOrCreate($request->except('_token'));
-        return redirect()->route('admin.author.create');
+        return redirect()->route('admin.author.index');
     }
 
     /**

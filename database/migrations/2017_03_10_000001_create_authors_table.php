@@ -16,7 +16,8 @@ class CreateAuthorsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('image_id')->unsigned()->nullable();
-            $table->string('email', 100)->nullable();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
             $table->mediumText('bio')->nullable();
             $table->smallInteger('age')->nullable();
             $table->timestamps();

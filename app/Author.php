@@ -13,9 +13,9 @@ class Author extends Model
      */
     protected $guarded = [];
 
-    
+
     public function User(){
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function Blogs(){
