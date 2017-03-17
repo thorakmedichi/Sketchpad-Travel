@@ -18,7 +18,7 @@ class CreateLocationsTable extends Migration
             $table->integer('image_id')->unsigned()->nullable();
             $table->integer('map_id')->unsigned()->nullable();
             $table->decimal('lat', 9, 6);
-            $table->decimal('lng', 8, 6);
+            $table->decimal('lng', 10, 6);
             $table->string('name', 100);
             $table->mediumText('description')->nullable();
             $table->timestamps();

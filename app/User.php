@@ -33,4 +33,8 @@ class User extends Authenticatable implements HasRoleContract
     public function Author(){
         return $this->hasOne(Author::class);
     }
+
+    public static function getSelectOptions(){
+        return self::orderBy('name')->pluck('name', 'id');
+    }
 }

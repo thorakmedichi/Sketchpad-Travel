@@ -20,7 +20,6 @@ class CreateTripsTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->mediumText('description')->nullable();
-            $table->integer('map_id1')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 

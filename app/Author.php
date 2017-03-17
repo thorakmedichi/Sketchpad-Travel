@@ -35,4 +35,9 @@ class Author extends Model
     public function Image(){
     	return $this->hasOne(Image::class);
     }
+
+
+    public static function getSelectOptions(){
+        return self::orderBy('name')->pluck('name', 'id');
+    }
 }

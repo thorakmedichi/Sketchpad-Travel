@@ -48,8 +48,8 @@ class BuildSeeder extends Seeder
             'country_id' => '1',
             'image_id' => null,
             'map_id' => null,
-            'lat' => '49.246292',
-            'lng' => '-123.116226',
+            'lat' => '49.24629',
+            'lng' => '-123.116',
             'name' => 'Vancouver',
             'description' => 'Some lengthy description about this location'
         ]);
@@ -65,8 +65,8 @@ class BuildSeeder extends Seeder
             'country_id' => '1',
             'image_id' => null,
             'map_id' => null,
-            'lat' => '‎48.407326',
-            'lng' => '‎-123.329773  ',
+            'lat' => '48.40732',
+            'lng' => '-123.329',
             'name' => 'Victoria',
             'description' => 'Some lengthy description about this location'
         ]);

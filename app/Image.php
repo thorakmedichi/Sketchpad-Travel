@@ -19,4 +19,9 @@ class Image extends Model
     public function Author(){
     	return $this->belongsTo(Author::class);
     }
+
+
+    public static function getSelectOptions(){
+        return self::orderBy('name')->pluck('name', 'id');
+    }
 }

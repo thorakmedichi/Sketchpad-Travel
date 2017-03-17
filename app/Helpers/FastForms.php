@@ -46,28 +46,38 @@ class FastForms {
         echo '<form class="form-horizontal" role="form" method="POST" action="'. $action .'">'. csrf_field() ;
                         
         foreach ($fields as $field => $settings){
-            if (strpos($settings['type'], 'varchar') !== false){
-                self::formInput('text', $field, ucfirst($field), 'pencil', $errors);
-            }
+            if (strpos($field, '_id') !== false){
+                $exploded = explode('_', $field);
+                $name = ucfirst($exploded[0]);
+                $table = 'App\\'. $name;
 
-            if (strpos($settings['type'], 'int') !== false){
-                self::formInput('text', $field, ucfirst($field), 'pencil', $errors);
-            }
-
-            if (strpos($settings['type'], 'enum') !== false){
-                $options = [];
-
-                preg_match_all('(\'(\w+)\')', $settings['type'], $matches);
-
-                foreach ($matches[1] as $match){
-                    $options[$match] = ucfirst($match);
+                $options = $table::getSelectOptions();
+                self::formSelect($field, $name, 'pencil', $options, $errors);
+            } 
+            else {
+                if (strpos($settings['type'], 'varchar') !== false){
+                    self::formInput('text', $field, ucfirst($field), 'pencil', $errors);
                 }
 
-                self::formSelect($field, ucfirst($field), 'pencil', $options, $errors);
-            }
+                if (strpos($settings['type'], 'int') !== false){
+                    self::formInput('text', $field, ucfirst($field), 'pencil', $errors);
+                }
 
-            if (strpos($settings['type'], 'text') !== false){
-                self::formTextarea($field, ucfirst($field), 'pencil', $errors);
+                if (strpos($settings['type'], 'enum') !== false){
+                    $options = [];
+
+                    preg_match_all('(\'(\w+)\')', $settings['type'], $matches);
+
+                    foreach ($matches[1] as $match){
+                        $options[$match] = ucfirst($match);
+                    }
+
+                    self::formSelect($field, ucfirst($field), 'pencil', $options, $errors);
+                }
+
+                if (strpos($settings['type'], 'text') !== false){
+                    self::formTextarea($field, ucfirst($field), 'pencil', $errors);
+                }
             }
         }
 
