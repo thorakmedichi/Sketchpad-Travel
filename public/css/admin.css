@@ -18024,3 +18024,8 @@ a.list-group-item-dark:hover, a.list-group-item-dark:focus {
 .panel-control > .btn-group:last-child > .btn:first-child {
   border-bottom-right-radius: 0;
 }
+
+#admin\.maps\.create #map {
+  width: 100%;
+  height: 300px;
+}
