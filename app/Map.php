@@ -15,4 +15,8 @@ class Map extends Model
     public function Trips(){
     	return $this->hasMany(Trip::class);
     }
+
+    public static function getSelectOptions(){
+        return self::orderBy('klm_file')->pluck('klm_file', 'id');
+    }
 }
