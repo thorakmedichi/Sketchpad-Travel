@@ -22,7 +22,7 @@
 
         <div class="boxed">
 
-            @include('admin.content.content')
+            @include('admin.content.container')
             
             @if (Auth::check())
                 @include('admin.sidebar.navigation')

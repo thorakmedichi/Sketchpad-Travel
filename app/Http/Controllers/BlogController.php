@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Author;
+use App\Blog;
 use Illuminate\Http\Request;
 
-class AuthorController extends Controller
+class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class AuthorController extends Controller
     public function index()
     {   
         $data = [
-            'authors' => Author::get()
+            'blogs' => Blog::get()
         ];
-        return view('admin.content.authors.index', $data);
+        return view('admin.content.blogs.index', $data);
     }
 
     /**
@@ -27,7 +27,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        return view('admin.content.authors.create');
+        return view('admin.content.blogs.create');
     }
 
     /**
@@ -36,19 +36,19 @@ class AuthorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AuthorRequest $request)
+    public function store(BlogRequest $request)
     {
-        Author::firstOrCreate($request->except('_token'));
-        return redirect()->route('admin.authors.index');
+        Blog::firstOrCreate($request->except('_token'));
+        return redirect()->route('admin.blogs.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Author  $author
+     * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function show(Author $author)
+    public function show(Blog $blog)
     {
         //
     }
@@ -56,37 +56,38 @@ class AuthorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Author  $author
+     * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function edit(Author $author)
+    public function edit(Blog $blog)
     {
         $data = [
-            'authors' => $author
+            'blog' => $blog
         ];
-        return view('admin.content.authors.create', $data);
+
+        return view('admin.content.blogs.create', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Author  $author
+     * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(AuthorRequest $request, Author $author)
+    public function update(BlogRequest $request, Blog $blog)
     {
-        Author::update($request->except('_token'));
-        return redirect()->route('admin.authors.index');
+        Blog::update($request->except('_token'));
+        return redirect()->route('admin.blogs.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Author  $author
+     * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Author $author)
+    public function destroy(Blog $blog)
     {
         //
     }

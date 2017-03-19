@@ -38,5 +38,6 @@ Route::prefix('/admin')
 		Route::name('dashboard')
 			->get('/', function(){  });
 
-		Route::resource('/author', 'AuthorController');
+		Route::resource('/authors', 'AuthorController');
+		Route::resource('/blogs', 'BlogController');
 });

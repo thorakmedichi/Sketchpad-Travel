@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLocationAuthorTable extends Migration
+class CreateLocationAuthorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateLocationAuthorTable extends Migration
      */
     public function up()
     {
-        Schema::create('location_author', function (Blueprint $table) {
+        Schema::create('location_authors', function (Blueprint $table) {
             $table->integer('location_id')->unsigned();
             $table->integer('author_id')->unsigned();
 
@@ -28,11 +28,11 @@ class CreateLocationAuthorTable extends Migration
      */
     public function down()
     {
-        Schema::table('location_author', function (Blueprint $table) {
+        Schema::table('location_authors', function (Blueprint $table) {
             $table->dropForeign(['location_id']);
             $table->dropForeign(['author_id']);
         });
 
-        Schema::drop('location_author');
+        Schema::drop('location_authors');
     }
 }

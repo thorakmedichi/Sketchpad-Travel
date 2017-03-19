@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
 {
-    protected $gaurded = [];
+    protected $gaurded = ['id'];
 
     public function Author(){
     	return $this->belongsTo(Author::class);
@@ -19,4 +19,13 @@ class Blog extends Model
     public function Trip(){
     	return $this->morphedByMany(Trip::class, 'blog_relation');
     }
+
+    public function Relation(){
+        return $blogRelation = BlogRelation::where('blog_id', $this->id)->first();
+    }
+
+    public static function getSelectOptions(){
+        return self::orderBy('title')->pluck('title', 'id');
+    }
+
 }

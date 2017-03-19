@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTagRelationTable extends Migration
+class CreateTagRelationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,13 @@ class CreateTagRelationTable extends Migration
      */
     public function up()
     {
-        Schema::create('tag_relation', function (Blueprint $table) {
+        Schema::create('tag_relations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tag_id')->unsigned();
             $table->integer('related_id')->unsigned();
             $table->enum('type', ['image', 'trip', 'location', 'blog']);
 
-            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade')->onUpdate('cascade'); // When tag is deleted delete all references in tag_relation
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade')->onUpdate('cascade'); // When tag is deleted delete all references in tag_relations
         });
     }
 
@@ -29,10 +29,10 @@ class CreateTagRelationTable extends Migration
      */
     public function down()
     {
-        Schema::table('tag_relation', function (Blueprint $table) {
+        Schema::table('tag_relations', function (Blueprint $table) {
             $table->dropForeign(['tag_id']);
         });
 
-        Schema::drop('tag_relation');
+        Schema::drop('tag_relations');
     }
 }

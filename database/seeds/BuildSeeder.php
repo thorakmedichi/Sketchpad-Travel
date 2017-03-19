@@ -38,10 +38,10 @@ class BuildSeeder extends Seeder
         ]);
 
         // Location with a blog
-        DB::table('blog_relation')->insert([
+        DB::table('blog_relations')->insert([
             'blog_id' => '1',
             'relation_id' => '1',
-            'type' => 'locations'
+            'type' => 'location'
         ]);
 
         DB::table('locations')->insert([
@@ -54,7 +54,7 @@ class BuildSeeder extends Seeder
             'description' => 'Some lengthy description about this location'
         ]);
 
-        DB::table('location_author')->insert([
+        DB::table('location_authors')->insert([
             'location_id' => '1',
             'author_id' => '1'
         ]);
@@ -71,7 +71,7 @@ class BuildSeeder extends Seeder
             'description' => 'Some lengthy description about this location'
         ]);
 
-        DB::table('location_author')->insert([
+        DB::table('location_authors')->insert([
             'location_id' => '2',
             'author_id' => '1'
         ]);
@@ -87,10 +87,10 @@ class BuildSeeder extends Seeder
             'content' => 'This is the main body of text for the blog'
         ]);
 
-        DB::table('blog_relation')->insert([
+        DB::table('blog_relations')->insert([
             'blog_id' => '1',
             'relation_id' => '1',
-            'type' => 'trips'
+            'type' => 'trip'
         ]);
 
         DB::table('trips')->insert([
@@ -102,17 +102,17 @@ class BuildSeeder extends Seeder
             'description' => 'Some description about this big trip I did'
         ]);
 
-        DB::table('trip_author')->insert([
+        DB::table('trip_authors')->insert([
             'trip_id' => '1',
             'author_id' => '1'
         ]);
 
-        DB::table('trip_location')->insert([
+        DB::table('trip_locations')->insert([
             'trip_id' => '1',
             'location_id' => '1'
         ]);
 
-        DB::table('trip_location')->insert([
+        DB::table('trip_locations')->insert([
             'trip_id' => '1',
             'location_id' => '2'
         ]);

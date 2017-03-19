@@ -4,14 +4,18 @@ namespace App\Sketchpad;
 
 class FastForms {
 
-    public static function generate($table, $action, $errors, $ignoreGaurded = true){
+    public static function generate($table, $action, $errors, $values = null, $callback = null, $ignoreGaurded = true){
         if (empty($table)){
             throw new Exception("You must provide a database table name", 1);
         }
 
+        if (empty($action)){
+            throw new Exception("You must provide an action endpoint", 2);
+        }
+
         $fields = self::getDatabaseFields($table, $ignoreGaurded);
         
-        self::generateHTML($fields, $action, $errors);
+        self::generateHTML($fields, $action, $errors, $values, $callback);
     }
 
     public static function getDatabaseFields($table, $ignoreGaurded){
@@ -41,26 +45,34 @@ class FastForms {
         return $fields;
     }
 
-    public static function generateHTML($fields, $action, $errors){
+    public static function generateHTML($fields, $action, $errors, $values, $callback){
 
         echo '<form class="form-horizontal" role="form" method="POST" action="'. $action .'">'. csrf_field() ;
-                        
+        
+        $iteration = 1;
+
         foreach ($fields as $field => $settings){
+            if (!empty($callback)){
+                if ($iteration == $callback[0]){
+                    $callback[1]();
+                }
+            }
+
             if (strpos($field, '_id') !== false){
                 $exploded = explode('_', $field);
                 $name = ucfirst($exploded[0]);
                 $table = 'App\\'. $name;
 
                 $options = $table::getSelectOptions();
-                self::formSelect($field, $name, 'pencil', $options, $errors);
+                self::formSelect($field, $name, 'pencil', $options, $errors, $values[$field]);
             } 
             else {
                 if (strpos($settings['type'], 'varchar') !== false){
-                    self::formInput('text', $field, ucfirst($field), 'pencil', $errors);
+                    self::formInput('text', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
                 }
 
                 if (strpos($settings['type'], 'int') !== false){
-                    self::formInput('text', $field, ucfirst($field), 'pencil', $errors);
+                    self::formInput('text', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
                 }
 
                 if (strpos($settings['type'], 'enum') !== false){
@@ -72,13 +84,15 @@ class FastForms {
                         $options[$match] = ucfirst($match);
                     }
 
-                    self::formSelect($field, ucfirst($field), 'pencil', $options, $errors);
+                    self::formSelect($field, ucfirst($field), 'pencil', $options, $errors, $values[$field]);
                 }
 
                 if (strpos($settings['type'], 'text') !== false){
-                    self::formTextarea($field, ucfirst($field), 'pencil', $errors);
+                    self::formTextarea($field, ucfirst($field), 'pencil', $errors, $values[$field]);
                 }
             }
+
+            $iteration++;
         }
 
         echo '<div class="form-group">

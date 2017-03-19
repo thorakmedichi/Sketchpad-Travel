@@ -9,7 +9,9 @@
 
         <main id="{{ Route::currentRouteName() }}" roll="main">
             <div class="content">
+
                 @yield('content')
+            
             </div>
         </main>
     

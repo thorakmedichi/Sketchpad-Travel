@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLocationImageTable extends Migration
+class CreateLocationImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateLocationImageTable extends Migration
      */
     public function up()
     {
-        Schema::create('location_image', function (Blueprint $table) {
+        Schema::create('location_images', function (Blueprint $table) {
             $table->integer('location_id')->unsigned();
             $table->integer('image_id')->unsigned();
             $table->tinyInteger('order');
@@ -29,11 +29,11 @@ class CreateLocationImageTable extends Migration
      */
     public function down()
     {
-        Schema::table('location_image', function (Blueprint $table) {
+        Schema::table('location_images', function (Blueprint $table) {
             $table->dropForeign(['location_id']);
             $table->dropForeign(['image_id']);
         });
 
-        Schema::drop('location_image');
+        Schema::drop('location_images');
     }
 }
