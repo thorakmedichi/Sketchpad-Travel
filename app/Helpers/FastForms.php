@@ -120,6 +120,14 @@ class FastForms {
                 else if (strpos($settings['type'], 'text') !== false){
                     self::formTextarea($field, ucfirst($field), 'pencil', $errors, $values[$field]);
                 }
+
+                if (strpos($settings['type'], 'decimal') !== false){
+                    self::formInput('text', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
+                }
+
+                if (strpos($settings['type'], 'date') !== false){
+                    self::formInput('date', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
+                }
             }
 
             $iteration++;

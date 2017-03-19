@@ -28,7 +28,10 @@ class BlogRequest extends FormRequest
             'status' => 'required|in:published,draft',
             'title' => 'required|string',
             'excerpt' => 'nullable|string',
-            'content' => 'nullable|string'
+            'content' => 'nullable|string',
+            'created_at' => 'date',
+            'updated_at' => 'date',
+            'deleted_at' => 'date'
         ];
     }
 }

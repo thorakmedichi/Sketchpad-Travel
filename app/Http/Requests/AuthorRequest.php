@@ -29,7 +29,10 @@ class AuthorRequest extends FormRequest
             'name' => 'required|string',
             'email' => 'nullable',
             'bio' => 'nullable',
-            'age' => 'nullable'
+            'age' => 'nullable',
+            'created_at' => 'date',
+            'updated_at' => 'date',
+            'deleted_at' => 'date'
         ];
     }
 }
