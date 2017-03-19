@@ -21,6 +21,7 @@ class CreateLocationsTable extends Migration
             $table->decimal('lng', 10, 6);
             $table->string('name', 100);
             $table->mediumText('description')->nullable();
+            $table->date('visit_date');
             $table->timestamps();
             $table->softDeletes();
 

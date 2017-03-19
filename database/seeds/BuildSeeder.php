@@ -51,7 +51,8 @@ class BuildSeeder extends Seeder
             'lat' => '49.24629',
             'lng' => '-123.116',
             'name' => 'Vancouver',
-            'description' => 'Some lengthy description about this location'
+            'description' => 'Some lengthy description about this location',
+            'visit_date' => '2016-11-15'
         ]);
 
         DB::table('location_authors')->insert([
@@ -68,7 +69,8 @@ class BuildSeeder extends Seeder
             'lat' => '48.40732',
             'lng' => '-123.329',
             'name' => 'Victoria',
-            'description' => 'Some lengthy description about this location'
+            'description' => 'Some lengthy description about this location',
+            'visit_date' => '2016-12-15'
         ]);
 
         DB::table('location_authors')->insert([
