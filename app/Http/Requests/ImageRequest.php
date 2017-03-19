@@ -4,8 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LocationRequest extends FormRequest
+class ImageRequest extends FormRequest
 {
+
+    private $clean = false;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,7 +29,7 @@ class LocationRequest extends FormRequest
             }
 
             // Remove whitespace from postal codes
-            $inputs['visit_date'] = date('Y-m-d', strtotime($inputs['visit_date']));
+            $inputs['date'] = date('Y-m-d', strtotime($inputs['date']));
 
             // Replace the inputs for the actual DB entries
             $this->replace($inputs);
@@ -43,14 +46,11 @@ class LocationRequest extends FormRequest
     public function rules()
     {
         return [
-            'country_id' => 'required|integer',
-            'image_id' => 'nullable|integer',
-            'map_id' => 'nullable|integer',
-            'lat' => 'required|numeric',
-            'lng' => 'required|numeric',
+            'user_id' => 'required|integer',
+            'filename' => 'required|string',
             'name' => 'required|string',
             'description' => 'nullable|string',
-            'visit_date' => 'required|date_format:Y-m-d',
+            'date' => 'nullable|date_format:Y-m-d',
             'created_at' => 'date',
             'updated_at' => 'date',
             'deleted_at' => 'date'

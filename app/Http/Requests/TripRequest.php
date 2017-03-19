@@ -13,7 +13,27 @@ class TripRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+    }
+
+    public function all(){
+        return $this->sanitize(parent::all());
+    }
+    
+    protected function sanitize(Array $inputs){
+            if($this->clean){
+                return $inputs;
+            }
+
+            // Remove whitespace from postal codes
+            $inputs['start_date'] = date('Y-m-d', strtotime($inputs['start_date']));
+            $inputs['end_date'] = date('Y-m-d', strtotime($inputs['end_date']));
+
+            // Replace the inputs for the actual DB entries
+            $this->replace($inputs);
+            $this->clean = true;
+
+            return $inputs;
     }
 
     /**
@@ -27,8 +47,8 @@ class TripRequest extends FormRequest
             'image_id' => 'nullable|integer',
             'map_id' => 'nullable|integer',
             'name' => 'required|string',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'start_date' => 'required|date_format:Y-m-d',
+            'end_date' => 'required|date_format:Y-m-d',
             'description' => 'nullable|string',
             'created_at' => 'date',
             'updated_at' => 'date',

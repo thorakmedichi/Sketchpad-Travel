@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
-    protected $gaurded = [];
+    protected $guarded = ['id'];
 
     public function Locations(){
     	return $this->belongsToMany(Location::class, 'location_image');

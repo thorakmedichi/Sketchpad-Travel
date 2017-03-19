@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Trip extends Model
 {
-    protected $gaurded = [];
+    protected $guarded = ['id'];
 
     // A Trip could belong to multiple authors if both authors are writting about a joint trip
     public function Authors(){

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
-    protected $gaurded = [];
+    protected $guarded = ['id'];
 
     public function Country(){
     	return $this->belongsTo(Country::class);

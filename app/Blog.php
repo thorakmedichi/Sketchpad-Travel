@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
 {
-    protected $gaurded = ['id'];
+    protected $guarded = ['id'];
 
     public function Author(){
     	return $this->belongsTo(Author::class);

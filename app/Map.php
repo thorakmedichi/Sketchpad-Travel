@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Map extends Model
 {
-    protected $gaurded = [];
+    protected $guarded = ['id'];
 
     public function Locations(){
     	return $this->hasMany(Location::class);

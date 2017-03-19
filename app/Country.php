@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
-    protected $gaurded = [];
+    protected $guarded = [];
 
     public function Locations(){
     	return $this->hasMany(Location::class);
