@@ -26,8 +26,8 @@ class BlogController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.content.blogs.create');
+    {   
+        return view('admin.content.blogs.create', ['blog' => null]);
     }
 
     /**

@@ -95,9 +95,14 @@ class FastForms {
             $iteration++;
         }
 
+        $buttonText = 'Create';
+        if (!empty($values)){
+            $buttonText = 'Update';
+        }
+
         echo '<div class="form-group">
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary btn-labeled fa fa-floppy-o pull-right">Add</button>
+                        <button type="submit" class="btn btn-primary btn-labeled fa fa-floppy-o pull-right">'. $buttonText .'</button>
                     </div>
                 </div>
             </form>';
