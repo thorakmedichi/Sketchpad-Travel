@@ -4,7 +4,7 @@
 @section('title', 'Maps')
 
 @section('panel-content')
-
+    
     <table class="table table-condensed">
         <thead>
             <tr>
@@ -49,6 +49,11 @@
                     //googleMaps['map-{{ $map->id }}'].setCenter({!! $map->center !!});
                     //googleMaps['map-{{ $map->id }}'].setZoom({!! $map->zoom !!});
                     googleMaps['map-{{ $map->id }}'].fitBounds({!! $map->bounds !!});
+
+                    var kmlOverlay = new google.maps.KmlLayer({
+                        url: '{{ Storage::disk('s3')->url($map->kml_filename) }}',
+                        map: googleMaps['map-{{ $map->id }}']
+                    });
                 @endforeach
             });
         }

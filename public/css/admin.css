@@ -18036,3 +18036,7 @@ a.list-group-item-dark:hover, a.list-group-item-dark:focus {
   width: 300px;
   height: 100px;
 }
+
+#map {
+  margin-bottom: 20px;
+}

@@ -92,7 +92,7 @@ class MapController extends Controller
         $request->merge(['kml_filename' => $this->uploadFile($request)]);        
 
         // Update database
-        $map->update($request->except(['_token', '_method', 'kml_file']));
+        //$map->update($request->except(['_token', '_method', 'kml_file']));
         return redirect()->route('admin.maps.index');
     }
 
@@ -108,6 +108,12 @@ class MapController extends Controller
     }
 
     private function uploadFile(MapRequest $request){
+        // If the person is updating a map and already has a kml file uploaded to S3
+        // and hasn't selected a new file to upload then leave it as it is
+        if (!empty($request->input('kml_filename')) && !$request->hasFile('kml_file')){
+            return $request->input('kml_filename');
+        }
+
         $file = $request->file('kml_file');
         $fileName = $file->getClientOriginalName();
         $filePath = 'kml';

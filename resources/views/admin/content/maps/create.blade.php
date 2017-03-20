@@ -10,6 +10,7 @@
         <div id="markerMenu" style="display: none;"></div>
     </div>
 
+
     <?php 
         App\Sketchpad\FastForms::generate([
             'table' => 'maps',
@@ -17,7 +18,18 @@
             'errors' => $errors, 
             'values' => $map, 
             'ignoreFields' => ['kml_filename'],
-            'customFields' => [App\Sketchpad\FastForms::formFile('kml_file', 'KML File', $errors)],
+            'customFields' => [
+                '<div class="form-group">
+                    <div class="col-md-12">
+                        <label>KML Filename</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-file fa-lg"></i></span>
+                            <input type="text" id="kml_filename" name="kml_filename" value="'. $map->kml_filename .'" readonly="true" class="form-control">
+                        </div>
+                    </div>
+                </div>',
+                App\Sketchpad\FastForms::formFile('kml_file', 'KML File', $errors)
+            ],
             ]);
     ?>
 
