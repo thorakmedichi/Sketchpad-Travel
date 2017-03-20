@@ -113,7 +113,7 @@ class FastForms {
         }
 
         // Being HTML output 
-        $html = '<form class="form-horizontal" role="form" method="post" action="'. $action[1] .'">'. csrf_field() . method_field($action[0]);
+        $html = '<form class="form-horizontal" role="form" method="post" enctype="multipart/form-data" action="'. $action[1] .'">'. csrf_field() . method_field($action[0]);
 
         $iteration = 1;
         foreach ($fields as $field => $output){

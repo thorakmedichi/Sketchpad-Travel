@@ -22,7 +22,7 @@
                         <div id="markerMenu" style="display: none;"></div>
                     </div>
                 </td>
-                <td>{{ $map->klm_file }}</td>
+                <td>{{ $map->klm_filename }}</td>
             </tr>
             @endforeach
         </tbody>

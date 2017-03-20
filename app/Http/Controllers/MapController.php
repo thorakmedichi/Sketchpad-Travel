@@ -42,8 +42,13 @@ class MapController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(MapRequest $request)
-    {
-        Map::firstOrCreate($request->except(['_token', '_method']));
+    {   
+        // Upload the file to S3 and add filename to request inputs
+        $request->merge(['klm_filename' => $this->uploadFile($request)]);   
+
+        // Create the DB object
+        Map::firstOrCreate($request->except(['_token', '_method', 'klm_file']));
+
         return redirect()->route('admin.maps.index');
     }
 
@@ -82,8 +87,12 @@ class MapController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(MapRequest $request, Map $map)
-    {
-        $map->update($request->except(['_token', '_method']));
+    {   
+        // Upload the file to S3 and add filename to request inputs
+        $request->merge(['klm_filename' => $this->uploadFile($request)]);        
+
+        // Update database
+        $map->update($request->except(['_token', '_method', 'klm_file']));
         return redirect()->route('admin.maps.index');
     }
 
@@ -96,5 +105,15 @@ class MapController extends Controller
     public function destroy(Map $map)
     {
         //
+    }
+
+    private function uploadFile(MapRequest $request){
+        $file = $request->file('klm_file');
+        $fileName = $file->getClientOriginalName();
+        $filePath = 'klm';
+
+        $request->file('klm_file')->storeAs($filePath, $fileName, 's3');
+
+        return $filePath .'/' .$fileName;
     }
 }

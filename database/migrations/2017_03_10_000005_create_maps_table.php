@@ -15,7 +15,7 @@ class CreateMapsTable extends Migration
         Schema::create('maps', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 256);
-            $table->string('klm_file', 256)->nullable();
+            $table->string('klm_filename', 256)->nullable();
             $table->string('bounds', 256)->nullable();
             $table->string('center', 256)->nullable();
             $table->integer('zoom')->nullable();

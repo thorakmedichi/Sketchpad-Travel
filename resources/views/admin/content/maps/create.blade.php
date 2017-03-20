@@ -16,7 +16,7 @@
             'action' => $action == 'create' ? ['post', route('admin.maps.store')] : ['put', route('admin.maps.update', ['id' => $map->id])], 
             'errors' => $errors, 
             'values' => $map, 
-            'ignoreFields' => ['klm_file'],
+            'ignoreFields' => ['klm_filename'],
             'customFields' => [App\Sketchpad\FastForms::formFile('klm_file', 'KLM File', $errors)],
             ]);
     ?>
