@@ -24,7 +24,7 @@
                         <label>KML Filename</label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-file fa-lg"></i></span>
-                            <input type="text" id="kml_filename" name="kml_filename" value="'. $map->kml_filename .'" readonly="true" class="form-control">
+                            <input type="text" id="kml_filename" name="kml_filename" value="'. (!empty($map->kml_filename) ? $map->kml_filename : '') .'" readonly="true" class="form-control">
                         </div>
                     </div>
                 </div>',

@@ -7,7 +7,7 @@
 	            <div class="panel-heading">
 	            	<h3 class="panel-title pull-left">@yield('title')</h3>
 	            	@if(empty($action))
-		            	<a href="{{ $_SERVER['REQUEST_URI'] .'create' }}" class="btn btn-primary btn-labeled fa fa-plus pull-right">Add</a>
+		            	<a href="{{ $_SERVER['REQUEST_URI'] .'/create' }}" class="btn btn-primary btn-labeled fa fa-plus pull-right">Add</a>
 		            @endif
 	            </div>
 	            <div class="panel-body">
