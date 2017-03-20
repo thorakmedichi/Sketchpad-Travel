@@ -17,7 +17,18 @@ class FastForms {
      * @param     boolean    $ignoreGaurded    Should we return special fields typically not needed in forms or just ignore them (id, created_at, etc)
      * @return    html                         Echo out the HTML / PHP for the form
      */
-    public static function generate($table, $action, $errors, $values = null, $callback = null, $ignoreGaurded = true){
+    public static function generate($configArray){
+
+        $table = !empty($configArray['table']) ? $configArray['table'] : null;
+        $action = !empty($configArray['action']) ? $configArray['action'] : ['post', '/'];
+        $errors = !empty($configArray['errors']) ? $configArray['errors'] : null;
+        $values = !empty($configArray['values']) ? $configArray['values'] : null;
+        $callback = !empty($configArray['callback']) ? $configArray['callback'] : null;
+        $ignoreGaurded = !empty($configArray['ignoreGaurded']) ? $configArray['ignoreGaurded'] : true;
+        $ignoreFields = !empty($configArray['ignoreFields']) ? $configArray['ignoreFields'] : null;
+        $customFields = !empty($configArray['customFields']) ? $configArray['customFields'] : null;
+
+
         if (empty($table)){
             throw new Exception("You must provide a database table name", 1);
         }
@@ -28,7 +39,7 @@ class FastForms {
 
         $fields = self::getDatabaseFields($table, $ignoreGaurded);
         
-        self::generateHTML($fields, $action, $errors, $values, $callback);
+        self::generateHTML($fields, $ignoreFields, $customFields, $action, $errors, $values, $callback);
     }
 
     /**
@@ -66,26 +77,43 @@ class FastForms {
 
     /**
      * Here is where the HTML will be generated for the entire form
-     * @param     array     $fields      The list of fields and values needed to auto generate the form inputs
-     * @param     string    $action      The URL that the form will post to
-     * @param     object    $errors      Laravels error collection object
-     * @param     object    $values      The values we want to populate the inputs, if they exist
-     * @param     array     $callback    [Integer, Function] The first value of the array is the location in the list of inputs. The second is the function to run
-     *                                   Typically the function will be a call to one of the static input functions in this class
-     * @return    html                   This function simply echo's out the html output
+     * @param     array     $fields             The list of fields and values needed to auto generate the form inputs
+     * @param     array     $ignoreFields       The list of fields that we dont want listed in the autogeneration
+     * @param     array     $customFields       The list of fields that exist on top of the base DB fields
+     * @param     string    $action             The URL that the form will post to
+     * @param     object    $errors             Laravels error collection object
+     * @param     object    $values             The values we want to populate the inputs, if they exist
+     * @param     array     $callback           [Integer, Function] The first value of the array is the location in the list of inputs. The second is the function to run
+     *                                          Typically the function will be a call to one of the static input functions in this class
+     * @return    html                          This function simply echo's out the html output
      */
-    public static function generateHTML($fields, $action, $errors, $values, $callback){
+    public static function generateHTML($fields, $ignoreFields, $customFields, $action, $errors, $values, $callback){
+        // Run the custom callback first in case it influences the reset of the form data
+        if (!empty($callback)){
+            $callback();
+        }
 
-        echo '<form class="form-horizontal" role="form" method="post" action="'. $action[1] .'">'. csrf_field() . method_field($action[0]);
-        
+        foreach ($ignoreFields as $ignorField){
+            if (isset($field[$ignorField])){
+                unset($field[$ignorField]);
+            }
+        }
+
+        if (!empty($customFields)){
+            foreach($customFields as $position => $customField){
+                // Insert the custom field in the desired location
+                array_splice($fields, $position, 0, $customField);
+                reset($fields);
+            }
+        }
+        $html = '<form class="form-horizontal" role="form" method="post" action="'. $action[1] .'">'. csrf_field() . method_field($action[0]);
+
         $iteration = 1;
+        foreach ($fields as $field => $output){
 
-        foreach ($fields as $field => $settings){
-            // This lets us add extra inputs and decide where to put them
-            if (!empty($callback)){
-                if ($iteration == $callback[0]){
-                    $callback[1]();
-                }
+            if (is_int($field)){
+                $html .= $output; // If the 
+                continue;
             }
 
             if (strpos($field, '_id') !== false){
@@ -94,39 +122,39 @@ class FastForms {
                 $table = 'App\\'. $name;
 
                 $options = $table::getSelectOptions();
-                self::formSelect($field, $name, 'pencil', $options, $errors, $values[$field]);
+                $html .= self::formSelect($field, $name, 'pencil', $options, $errors, $values[$field]);
             } 
             else {
-                if (strpos($settings['type'], 'varchar') !== false){
-                    self::formInput('text', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
+                if (strpos($output['type'], 'varchar') !== false){
+                    $html .= self::formInput('text', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
                 }
 
-                else if (strpos($settings['type'], 'int') !== false){
-                    self::formInput('text', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
+                else if (strpos($output['type'], 'int') !== false){
+                    $html .= self::formInput('text', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
                 }
 
-                else if (strpos($settings['type'], 'enum') !== false){
+                else if (strpos($output['type'], 'enum') !== false){
                     $options = [];
 
-                    preg_match_all('(\'(\w+)\')', $settings['type'], $matches);
+                    preg_match_all('(\'(\w+)\')', $output['type'], $matches);
 
                     foreach ($matches[1] as $match){
                         $options[$match] = ucfirst($match);
                     }
 
-                    self::formSelect($field, ucfirst($field), 'pencil', $options, $errors, $values[$field]);
+                    $html .= self::formSelect($field, ucfirst($field), 'pencil', $options, $errors, $values[$field]);
                 }
 
-                else if (strpos($settings['type'], 'text') !== false){
-                    self::formTextarea($field, ucfirst($field), 'pencil', $errors, $values[$field]);
+                else if (strpos($output['type'], 'text') !== false){
+                    $html .= self::formTextarea($field, ucfirst($field), 'pencil', $errors, $values[$field]);
                 }
 
-                if (strpos($settings['type'], 'decimal') !== false){
-                    self::formInput('text', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
+                else if (strpos($output['type'], 'decimal') !== false){
+                    $html .= self::formInput('text', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
                 }
 
-                if (strpos($settings['type'], 'date') !== false){
-                    self::formInput('date', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
+                else if (strpos($output['type'], 'date') !== false){
+                    $html .= self::formInput('date', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
                 }
             }
 
@@ -138,12 +166,14 @@ class FastForms {
             $buttonText = 'Update';
         }
 
-        echo '<div class="form-group">
+        $html .= '<div class="form-group">
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-primary btn-labeled fa fa-floppy-o pull-right">'. $buttonText .'</button>
                     </div>
                 </div>
             </form>';
+
+        echo $html;
     }
 
     /**
@@ -173,8 +203,8 @@ class FastForms {
      * @return    html                 The HTML to be echo'd out
      */
     public static function inputWrapper($name, $label, $input, $icon, $errors){
-        echo '
-            <div class="form-group '. ($errors->has($name) ? "has-error" : "") .'">
+        return '
+            <div class="form-group '. ($errors->has($name) ? 'has-error' : '') .'">
                 <div class="col-md-12">
                     <label>'. ucfirst($label) .'</label>
                     <div class="input-group">
@@ -198,9 +228,9 @@ class FastForms {
      */
     public static function formInput($type, $name, $label, $icon, $errors, $value=''){
         $value = htmlspecialchars($value);
-        $input = '<input type="'. $type .'" id="'. $name .'" name="'. $name .'" value="'. old($name, $value) .'" placeholder="'. $label .'" class="form-control">';
+        $input = '<input type="'. $type .'" id="'. $name .'" name="'. $name .'" value="'. old('', $value) .'" placeholder="'. $label .'" class="form-control">';
 
-        self::inputWrapper($name, $label, $input, $icon, $errors);
+        return self::inputWrapper($name, $label, $input, $icon, $errors);
     }
 
     /**
@@ -225,7 +255,7 @@ class FastForms {
                     '. $optionList .'
                   </select>';
 
-        self::inputWrapper($name, $label, $input, $icon, $errors);
+        return self::inputWrapper($name, $label, $input, $icon, $errors);
     }
 
     /**
@@ -240,7 +270,7 @@ class FastForms {
     public static function formTextarea($name, $label, $icon, $errors, $value=''){
         $input = '<textarea id="'. $name .'" name="'. $name .'" class="form-control expanding">'. old($name, $value) .'</textarea>';
 
-        self::inputWrapper($name, $label, $input, $icon, $errors);
+        return self::inputWrapper($name, $label, $input, $icon, $errors);
     }
 
     /**
@@ -253,7 +283,7 @@ class FastForms {
     public static function formFile($name, $label, $errors){
         $input = '<input type="file" id="'. $name .'" name="'. $name .'" class="form-control" />';
 
-        self::inputWrapper($name, $label, $input, 'paperclip', $errors);
+        return self::inputWrapper($name, $label, $input, 'paperclip', $errors);
     }
 
     /**

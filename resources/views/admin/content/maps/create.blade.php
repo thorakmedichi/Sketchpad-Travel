@@ -10,7 +10,16 @@
         <div id="markerMenu" style="display: none;"></div>
     </div>
 
-    {{ App\Sketchpad\FastForms::generate('maps', $action == 'create' ? ['post', route('admin.maps.store')] : ['put', route('admin.maps.update', ['id' => $map->id])], $errors, $map) }}
+    <?php 
+        App\Sketchpad\FastForms::generate([
+            'table' => 'maps',
+            'action' => $action == 'create' ? ['post', route('admin.maps.store')] : ['put', route('admin.maps.update', ['id' => $map->id])], 
+            'errors' => $errors, 
+            'values' => $map, 
+            'ignoreFields' => ['klm_file'],
+            'customFields' => [App\Sketchpad\FastForms::formFile('klm_file', 'KLM File', $errors)],
+            ]);
+    ?>
 
 @endsection
 
