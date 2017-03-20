@@ -27,7 +27,11 @@ class LocationController extends Controller
      */
     public function create()
     {   
-        return view('admin.content.locations.create', ['location' => null]);
+        $data = [
+            'location' => null,
+            'action' => 'create'
+        ];
+        return view('admin.content.locations.create', $data);
     }
 
     /**
@@ -62,7 +66,8 @@ class LocationController extends Controller
     public function edit(Location $location)
     {
         $data = [
-            'location' => $location
+            'location' => $location,
+            'action' => 'edit'
         ];
 
         return view('admin.content.locations.create', $data);

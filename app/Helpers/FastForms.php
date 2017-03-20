@@ -2,6 +2,8 @@
 
 namespace App\Sketchpad;
 
+use \Exception;
+
 class FastForms {
 
     /**
@@ -25,8 +27,8 @@ class FastForms {
         $values = !empty($configArray['values']) ? $configArray['values'] : null;
         $callback = !empty($configArray['callback']) ? $configArray['callback'] : null;
         $ignoreGaurded = !empty($configArray['ignoreGaurded']) ? $configArray['ignoreGaurded'] : true;
-        $ignoreFields = !empty($configArray['ignoreFields']) ? $configArray['ignoreFields'] : null;
-        $customFields = !empty($configArray['customFields']) ? $configArray['customFields'] : null;
+        $ignoreFields = !empty($configArray['ignoreFields']) ? $configArray['ignoreFields'] : [];
+        $customFields = !empty($configArray['customFields']) ? $configArray['customFields'] : [];
 
 
         if (empty($table)){
