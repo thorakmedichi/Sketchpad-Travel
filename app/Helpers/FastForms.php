@@ -93,12 +93,17 @@ class FastForms {
             $callback();
         }
 
-        foreach ($ignoreFields as $ignorField){
-            if (isset($field[$ignorField])){
-                unset($field[$ignorField]);
+        // Remove any unwanted fields from our form
+        // These may be fields you don't want at all OR
+        // fields that you want to add more customization too with customFields
+        foreach ($ignoreFields as $ignoreField){
+            if (isset($fields[$ignoreField])){
+                unset($fields[$ignoreField]);
             }
         }
 
+        // These customFields directly display HTML output.
+        // Typicaly this will be done by calling the input methods that already exist in this class
         if (!empty($customFields)){
             foreach($customFields as $position => $customField){
                 // Insert the custom field in the desired location
