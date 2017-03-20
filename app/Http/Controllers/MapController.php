@@ -112,7 +112,7 @@ class MapController extends Controller
         $fileName = $file->getClientOriginalName();
         $filePath = 'kml';
 
-        $request->file('kml_file')->storeAs($filePath, $fileName, 's3');
+        $request->file('kml_file')->storeAs($filePath, $fileName, ['disk' => 's3', 'visibility' => 'public']);
 
         return $filePath .'/' .$fileName;
     }
