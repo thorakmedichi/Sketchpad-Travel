@@ -111,6 +111,8 @@ class FastForms {
                 reset($fields);
             }
         }
+
+        // Being HTML output 
         $html = '<form class="form-horizontal" role="form" method="post" action="'. $action[1] .'">'. csrf_field() . method_field($action[0]);
 
         $iteration = 1;
