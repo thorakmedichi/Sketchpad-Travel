@@ -10,7 +10,7 @@
             <tr>
                 <th>Name</th>
                 <th>Preview</th>
-                <th>KLM File</th>
+                <th>KML File</th>
             </tr>
         </thead>
         <tbody>
@@ -22,7 +22,7 @@
                         <div id="markerMenu" style="display: none;"></div>
                     </div>
                 </td>
-                <td>{{ $map->klm_filename }}</td>
+                <td>{{ $map->kml_filename }}</td>
             </tr>
             @endforeach
         </tbody>

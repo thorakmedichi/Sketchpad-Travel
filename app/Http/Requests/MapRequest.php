@@ -25,7 +25,7 @@ class MapRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'klm_file' => 'nullable|file',
+            'kml_file' => 'nullable|file',
             'sw_bounds' => 'nullable|number',
             'ne_bounds' => 'nullable|number',
             'created_at' => 'date',

@@ -16,8 +16,8 @@
             'action' => $action == 'create' ? ['post', route('admin.maps.store')] : ['put', route('admin.maps.update', ['id' => $map->id])], 
             'errors' => $errors, 
             'values' => $map, 
-            'ignoreFields' => ['klm_filename'],
-            'customFields' => [App\Sketchpad\FastForms::formFile('klm_file', 'KLM File', $errors)],
+            'ignoreFields' => ['kml_filename'],
+            'customFields' => [App\Sketchpad\FastForms::formFile('kml_file', 'KML File', $errors)],
             ]);
     ?>
 
@@ -40,6 +40,11 @@
                     googleMaps.map.setCenter({!! $map->center !!});
                     googleMaps.map.setZoom({!! $map->zoom !!});
                     //googleMaps.map.fitBounds({!! $map->bounds !!});
+                    
+                    var kmlOverlay = new google.maps.KmlLayer({
+                        url: '{{ Storage::disk('s3')->url($map->kml_filename) }}',
+                        map: googleMaps.map
+                    });
                 @endif
             });
         }
