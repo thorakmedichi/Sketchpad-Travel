@@ -17,6 +17,6 @@ class Map extends Model
     }
 
     public static function getSelectOptions(){
-        return self::orderBy('klm_file')->pluck('klm_file', 'id');
+        return self::orderBy('name')->pluck('name', 'id');
     }
 }

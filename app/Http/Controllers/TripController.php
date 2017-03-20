@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Trip;
 use Illuminate\Http\Request;
+use App\Http\Requests\TripRequest;
 
 class TripController extends Controller
 {
@@ -27,7 +28,11 @@ class TripController extends Controller
      */
     public function create()
     {   
-        return view('admin.content.trips.create', ['trip' => null]);
+        $data = [
+            'trip' => null,
+            'action' => 'create'
+        ];
+        return view('admin.content.trips.create', $data);
     }
 
     /**
@@ -38,7 +43,7 @@ class TripController extends Controller
      */
     public function store(TripRequest $request)
     {
-        Trip::firstOrCreate($request->except('_token'));
+        Trip::firstOrCreate($request->except(['_token', '_method']));
         return redirect()->route('admin.trips.index');
     }
 
@@ -62,7 +67,8 @@ class TripController extends Controller
     public function edit(Trip $trip)
     {
         $data = [
-            'trip' => $trip
+            'trip' => $trip,
+            'action' => 'edit'
         ];
 
         return view('admin.content.trips.create', $data);
@@ -77,7 +83,7 @@ class TripController extends Controller
      */
     public function update(TripRequest $request, Trip $trip)
     {
-        Trip::update($request->except('_token'));
+        $trip->update($request->except(['_token', '_method']));
         return redirect()->route('admin.trips.index');
     }
 

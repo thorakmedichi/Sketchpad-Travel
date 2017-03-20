@@ -215,7 +215,7 @@ class FastForms {
      * @return    html                 The HTML output for this input, including the wrapper
      */
     public static function formSelect($name, $label, $icon, $options=[], $errors, $value='', $multiple=false){
-        $optionList = '<option value="undefined">Select a '. $label .'</option>';
+        $optionList = '<option value="">Select a '. $label .'</option>';
 
         foreach ($options as $val => $option) {
             $optionList .= '<option value="'. $val .'" '. (old($name) == $val || $value == $val ? "selected" : "") .'>'. $option .'</option>';

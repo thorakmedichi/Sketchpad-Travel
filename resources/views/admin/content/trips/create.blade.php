@@ -6,6 +6,6 @@
 
 @section('panel-content')
 
-    {{ App\Sketchpad\FastForms::generate('trips', route('admin.trips.store'), $errors, $trip) }}
+    {{ App\Sketchpad\FastForms::generate('trips', $action == 'create' ? ['post', route('admin.trips.store')] : ['put', route('admin.trips.update', ['id' => $trip->id])], $errors, $trip) }}
 
 @endsection
