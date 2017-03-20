@@ -615,21 +615,19 @@ var initGoogleMapsObject = function(){
         // Declare our default view settings
         if (typeof initOptions == 'undefined'){
 
-console.log ('asdf');
-
             var initOptions = {
-                center: {lat: 48, lng: -123},
+                center: {lat: 43, lng: 12},
                 zoom: 2,
                 mapTypeId: 'satellite',
                 scrollwheel: false
             };
         }
-console.log (initOptions);
-        googleMaps.map = new google.maps.Map(document.getElementById( mapDivId ), initOptions);
-        //googleMaps.geoLocate(googleMaps.map);
-        //googleMaps.autoCompleteSearch(googleMaps.map, mapDivId);
 
-        googleMaps.displayMarkerMenu(googleMaps.map);
+        googleMaps[mapDivId] = new google.maps.Map(document.getElementById( mapDivId ), initOptions);
+        //googleMaps.geoLocate(googleMaps[mapDivId]);
+        //googleMaps.autoCompleteSearch(googleMaps[mapDivId], mapDivId);
+
+        googleMaps.displayMarkerMenu(googleMaps[mapDivId]);
 
         document.body.dispatchEvent(loadedEvent);
     };
@@ -731,6 +729,30 @@ var googleMapsIntegration = function () {
             optimized: false,
             zIndex: 10
         };
+
+    /**
+     * Google Map native event listeners
+     */
+    var mapViewportSettings = function (that){
+        var bounds = that.getBounds();
+        var center = that.getCenter();
+        var zoom = that.getZoom();
+
+        var swEl = document.getElementById( 'bounds' );
+        if (swEl) swEl.value = JSON.stringify(bounds);
+
+        var centerEl = document.getElementById( 'center' );
+        if (centerEl) centerEl.value = JSON.stringify(center);
+
+        var zoomEl = document.getElementById( 'zoom' );
+        if (zoomEl) zoomEl.value = JSON.stringify(zoom);
+    };
+
+    if (googleMaps.map){
+        google.maps.event.addListener(googleMaps.map, 'bounds_changed', function(){
+            mapViewportSettings(this);
+        });
+    }
 };
 
 document.body.addEventListener("googleMapsLoaded", googleMapsIntegration, false);

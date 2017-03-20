@@ -80,6 +80,30 @@ var googleMapsIntegration = function () {
             optimized: false,
             zIndex: 10
         };
+
+    /**
+     * Google Map native event listeners
+     */
+    var mapViewportSettings = function (that){
+        var bounds = that.getBounds();
+        var center = that.getCenter();
+        var zoom = that.getZoom();
+
+        var swEl = document.getElementById( 'bounds' );
+        if (swEl) swEl.value = JSON.stringify(bounds);
+
+        var centerEl = document.getElementById( 'center' );
+        if (centerEl) centerEl.value = JSON.stringify(center);
+
+        var zoomEl = document.getElementById( 'zoom' );
+        if (zoomEl) zoomEl.value = JSON.stringify(zoom);
+    };
+
+    if (googleMaps.map){
+        google.maps.event.addListener(googleMaps.map, 'bounds_changed', function(){
+            mapViewportSettings(this);
+        });
+    }
 };
 
 document.body.addEventListener("googleMapsLoaded", googleMapsIntegration, false);

@@ -616,18 +616,18 @@ var initGoogleMapsObject = function(){
         if (typeof initOptions == 'undefined'){
 
             var initOptions = {
-                center: {lat: 48, lng: -123},
+                center: {lat: 43, lng: 12},
                 zoom: 2,
                 mapTypeId: 'satellite',
                 scrollwheel: false
             };
         }
 
-        googleMaps.map = new google.maps.Map(document.getElementById( mapDivId ), initOptions);
-        //googleMaps.geoLocate(googleMaps.map);
-        //googleMaps.autoCompleteSearch(googleMaps.map, mapDivId);
+        googleMaps[mapDivId] = new google.maps.Map(document.getElementById( mapDivId ), initOptions);
+        //googleMaps.geoLocate(googleMaps[mapDivId]);
+        //googleMaps.autoCompleteSearch(googleMaps[mapDivId], mapDivId);
 
-        googleMaps.displayMarkerMenu(googleMaps.map);
+        googleMaps.displayMarkerMenu(googleMaps[mapDivId]);
 
         document.body.dispatchEvent(loadedEvent);
     };

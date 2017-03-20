@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Map;
 use Illuminate\Http\Request;
+use App\Http\Requests\MapRequest;
 
 class MapController extends Controller
 {
@@ -27,7 +28,11 @@ class MapController extends Controller
      */
     public function create()
     {   
-        return view('admin.content.maps.create', ['map' => null]);
+        $data = [
+            'map' => null,
+            'action' => 'create'
+        ];
+        return view('admin.content.maps.create', $data);
     }
 
     /**
@@ -38,7 +43,7 @@ class MapController extends Controller
      */
     public function store(MapRequest $request)
     {
-        Map::firstOrCreate($request->except('_token'));
+        Map::firstOrCreate($request->except(['_token', '_method']));
         return redirect()->route('admin.maps.index');
     }
 
@@ -62,7 +67,8 @@ class MapController extends Controller
     public function edit(Map $map)
     {
         $data = [
-            'map' => $map
+            'map' => $map,
+            'action' => 'edit'
         ];
 
         return view('admin.content.maps.create', $data);
@@ -77,7 +83,7 @@ class MapController extends Controller
      */
     public function update(MapRequest $request, Map $map)
     {
-        Map::update($request->except('_token'));
+        $map->update($request->except(['_token', '_method']));
         return redirect()->route('admin.maps.index');
     }
 

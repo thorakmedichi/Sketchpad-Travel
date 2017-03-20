@@ -10,7 +10,7 @@
         <div id="markerMenu" style="display: none;"></div>
     </div>
 
-    {{ App\Sketchpad\FastForms::generate('maps', route('admin.maps.store'), $errors, $map) }}
+    {{ App\Sketchpad\FastForms::generate('maps', $action == 'create' ? ['post', route('admin.maps.store')] : ['put', route('admin.maps.update', ['id' => $map->id])], $errors, $map) }}
 
 @endsection
 
@@ -25,23 +25,14 @@
         function initMap(){
             $(function(){
                 initGoogleMapsObject();
-                // Declare our view settings
-                // If left blank the defaults set in the googleMaps.initMap() will be used
-                // var initOptions = {
-                //         //center: {lat: homeData.lat, lng: homeData.lng},
-                //         zoom: 10,
-                //         mapTypeId: 'roadmap',
-                //         scrollwheel: false,
-                //         mapTypeControl: true,
-                //         mapTypeControlOptions: {
-                //             style: google.maps.MapTypeControlStyle.HORIZONTAL_MENU,
-                //             position: google.maps.ControlPosition.LEFT_BOTTOM
-                //         }
-                //     };
                 googleMaps.initMap('map');
+
+                @if(Route::currentRouteName() === 'admin.maps.edit')
+                    googleMaps.map.setCenter({!! $map->center !!});
+                    googleMaps.map.setZoom({!! $map->zoom !!});
+                    //googleMaps.map.fitBounds({!! $map->bounds !!});
+                @endif
             });
         }
     </script>
-
-    
 @endsection

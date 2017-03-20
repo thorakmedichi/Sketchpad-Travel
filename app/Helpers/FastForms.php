@@ -76,7 +76,7 @@ class FastForms {
      */
     public static function generateHTML($fields, $action, $errors, $values, $callback){
 
-        echo '<form class="form-horizontal" role="form" method="POST" action="'. $action .'">'. csrf_field() ;
+        echo '<form class="form-horizontal" role="form" method="post" action="'. $action[1] .'">'. csrf_field() . method_field($action[0]);
         
         $iteration = 1;
 
@@ -197,6 +197,7 @@ class FastForms {
      * @return    html                 The HTML output for this input, including the wrapper
      */
     public static function formInput($type, $name, $label, $icon, $errors, $value=''){
+        $value = htmlspecialchars($value);
         $input = '<input type="'. $type .'" id="'. $name .'" name="'. $name .'" value="'. old($name, $value) .'" placeholder="'. $label .'" class="form-control">';
 
         self::inputWrapper($name, $label, $input, $icon, $errors);
