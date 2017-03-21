@@ -28,4 +28,9 @@ class Location extends Model
     public function Map(){
     	return $this->belongsTo(Map::class);
     }
+
+
+    public static function getSelectOptions(){
+        return self::orderBy('name')->pluck('name', 'id');
+    }
 }

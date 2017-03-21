@@ -44,13 +44,15 @@
             $(function(){
                 initGoogleMapsObject();
 
-                @foreach ($trips as $trip)
-                    googleMaps.initMap('map-{{ $trip->id }}');
+                @if (!empty($trip->Map))
+                    @foreach ($trips as $trip)
+                        googleMaps.initMap('map-{{ $trip->id }}');
 
-                    //googleMaps['map-{{ $trip->id }}'].setCenter({!! $trip->Map->center !!});
-                    //googleMaps['map-{{ $trip->id }}'].setZoom({!! $trip->Map->zoom !!});
-                    googleMaps['map-{{ $trip->id }}'].fitBounds({!! $trip->Map->bounds !!});
-                @endforeach
+                        //googleMaps['map-{{ $trip->id }}'].setCenter({!! $trip->Map->center !!});
+                        //googleMaps['map-{{ $trip->id }}'].setZoom({!! $trip->Map->zoom !!});
+                        googleMaps['map-{{ $trip->id }}'].fitBounds({!! $trip->Map->bounds !!});
+                    @endforeach
+                @endif
             });
         }
     </script>

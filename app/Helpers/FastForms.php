@@ -117,14 +117,18 @@ class FastForms {
         // Being HTML output 
         $html = '<form class="form-horizontal" role="form" method="post" enctype="multipart/form-data" action="'. $action[1] .'">'. csrf_field() . method_field($action[0]);
 
-        $iteration = 1;
         foreach ($fields as $field => $output){
 
+            // If the $field is a number we can assume that this is a custom field
+            // We don't need to determine anything special about it, just display it
             if (is_int($field)){
-                $html .= $output; // If the 
+                $html .= $output; 
                 continue;
             }
 
+            // If the field ends in _id then we are going to want this to be a select box
+            // Anytime we are having people choose an ID that is a foreign key it must be a select
+            // NOTE: Google Maps Place Id is not included in this case as the id is external
             if (strpos($field, '_id') !== false && strpos($field, 'google_place_id') === false){
                 $exploded = explode('_', $field);
                 $name = ucfirst($exploded[0]);
@@ -166,8 +170,6 @@ class FastForms {
                     $html .= self::formInput('date', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
                 }
             }
-
-            $iteration++;
         }
 
         $buttonText = 'Create';
