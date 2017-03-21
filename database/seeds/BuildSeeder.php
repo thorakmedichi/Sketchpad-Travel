@@ -13,7 +13,8 @@ class BuildSeeder extends Seeder
     {
 
         DB::table('countries')->insert([
-            'name' => 'Canada',
+            'id' => 'CA',
+            'long_name' => 'Canada'
         ]);
 
         DB::table('authors')->insert([
@@ -45,7 +46,7 @@ class BuildSeeder extends Seeder
         ]);
 
         DB::table('locations')->insert([
-            'country_id' => '1',
+            'country_id' => 'CA',
             'image_id' => null,
             'map_id' => null,
             'lat' => '49.24629',
@@ -63,7 +64,7 @@ class BuildSeeder extends Seeder
 
         // Location without a blog
         DB::table('locations')->insert([
-            'country_id' => '1',
+            'country_id' => 'CA',
             'image_id' => null,
             'map_id' => null,
             'lat' => '48.40732',

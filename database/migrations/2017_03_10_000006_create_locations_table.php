@@ -16,7 +16,7 @@ class CreateLocationsTable extends Migration
             $table->increments('id');
             $table->date('visit_date');
             $table->string('name', 256);
-            $table->integer('country_id')->unsigned();
+            $table->string('country_id', 2);
             $table->mediumText('description')->nullable();
             $table->integer('image_id')->unsigned()->nullable();
             $table->integer('map_id')->unsigned()->nullable();

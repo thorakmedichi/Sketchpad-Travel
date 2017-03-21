@@ -29,6 +29,17 @@
     <script src="{{ url('js/google-maps/admin.js') }}"></script>
 
     <script>
+        function inSelect(elementId, value){
+            var exists = false;
+            for(var i = 0, opts = document.getElementById(elementId).options; i < opts.length; ++i){
+               if( opts[i].value === value ){
+                  exists = true; 
+                  break;
+               }
+            }
+            return exists;
+        }
+
         function initMap(){
             $(function(){
                 initGoogleMapsObject();
@@ -46,12 +57,14 @@
                         var country = googleMaps.getAddressComponent(place, 'country');
 
                         // create and select option
-                        var option = document.createElement("option");
-                        option.text = country.long_name;
-                        option.value = country.long_name;
-                        option.setAttribute('selected', 'selected');
                         var select = document.getElementById("country_id");
-                        select.appendChild(option);
+                        if (!inSelect('country_id', country.short_name)){
+                            var option = document.createElement("option");
+                            option.text = country.long_name;
+                            option.value = country.short_name;
+                            select.appendChild(option);
+                        } 
+                        select.value = country.short_name;
 
                         // Set name
                         var name = document.getElementById('name');

@@ -13,8 +13,8 @@ class CreateCountriesTable extends Migration
     public function up()
     {
         Schema::create('countries', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 45);
+            $table->string('id', 2)->primary(); // short name of the country
+            $table->string('long_name', 45);
             $table->timestamps();
             $table->softDeletes();
         });

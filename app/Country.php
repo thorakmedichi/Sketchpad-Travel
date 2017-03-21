@@ -14,6 +14,6 @@ class Country extends Model
 
 
     public static function getSelectOptions(){
-        return self::orderBy('name')->pluck('name', 'id');
+        return self::orderBy('long_name')->pluck('long_name', 'id');
     }
 }
