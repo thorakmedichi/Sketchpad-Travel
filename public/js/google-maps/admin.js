@@ -55,9 +55,13 @@ var initGoogleMapsObject = function(){
     }
 
     // Place a single marker on the map and add it to the marker array
-    googleMaps.placeMarker = function (map, location, icon, draggable = false){
+    googleMaps.placeMarker = function (map, location, icon, draggable){
         if (typeof icon == 'undefined' || icon == null){
             var icon = googleMaps.genericMarkerIcon;
+        }
+
+        if (typeof draggable == 'undefined' || draggable == null){
+            var draggable = false;;
         }
 
         // Create the marker
@@ -661,7 +665,7 @@ var initGoogleMapsObject = function(){
  */
 var googleMapsIntegration = function () {
 
-    var imagePath = '../../img/google-maps-icons/';
+    var imagePath = '/img/google-maps-icons/';
 
     /**
      * Define the marker objects to be used by the system 

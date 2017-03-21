@@ -12,7 +12,7 @@
  */
 var googleMapsIntegration = function () {
 
-    var imagePath = '../../img/google-maps-icons/';
+    var imagePath = '/img/google-maps-icons/';
 
     /**
      * Define the marker objects to be used by the system 
