@@ -255,11 +255,11 @@ class FastForms {
      * @param     boolean    $multiple    Is this a single select box or a multiple select box
      * @return    html                 The HTML output for this input, including the wrapper
      */
-    public static function formSelect($name, $label, $icon, $options=[], $errors, $value='', $multiple=false){
+    public static function formSelect($name, $label, $icon, $options=[], $errors, $values=[], $multiple=false){
         $optionList = '<option value="">Select a '. $label .'</option>';
 
         foreach ($options as $val => $option) {
-            $optionList .= '<option value="'. $val .'" '. (old($name) == $val || $value == $val ? "selected" : "") .'>'. $option .'</option>';
+            $optionList .= '<option value="'. $val .'" '. (old($name) == $val || in_array($val, $values) ? "selected" : "") .'>'. $option .'</option>';
         }
 
         $input = '<select id="'. $name .'" name="'. $name .'" class="selectpicker" '. ($multiple ? 'multiple' : '') .' data-live-search="true" data-width="fit" data-size="20">

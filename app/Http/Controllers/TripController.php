@@ -42,8 +42,15 @@ class TripController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(TripRequest $request)
-    {
-        Trip::firstOrCreate($request->except(['_token', '_method']));
+    {   
+        $trip = Trip::firstOrCreate($request->except(['_token', '_method', 'locations']));
+
+        $locations = [];
+        if (!empty($request->input('locations'))){
+            $locations = $request->input('locations');
+        }
+        $trip->Locations()->sync($locations);
+
         return redirect()->route('admin.trips.index');
     }
 
@@ -82,8 +89,14 @@ class TripController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(TripRequest $request, Trip $trip)
-    {
-        $trip->update($request->except(['_token', '_method']));
+    {   
+        $locations = [];
+        if (!empty($request->input('locations'))){
+            $locations = $request->input('locations');
+        }
+        $trip->Locations()->sync($locations);
+
+        $trip->update($request->except(['_token', '_method', 'locations']));
         return redirect()->route('admin.trips.index');
     }
 

@@ -29,6 +29,10 @@ class Location extends Model
     	return $this->belongsTo(Map::class);
     }
 
+    public function Trips(){
+        return $this->belongsToMany(Trip::class, 'trip_locations', 'location_id', 'trip_id');
+    }
+
 
     public static function getSelectOptions(){
         return self::orderBy('name')->pluck('name', 'id');

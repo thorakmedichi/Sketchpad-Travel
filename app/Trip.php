@@ -24,4 +24,8 @@ class Trip extends Model
     public function Map(){
     	return $this->belongsTo(Map::class);
     }
+
+    public function Locations(){
+        return $this->belongsToMany(Location::class, 'trip_locations', 'trip_id', 'location_id');
+    }
 }

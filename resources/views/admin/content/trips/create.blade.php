@@ -12,7 +12,8 @@
             'action' => $action == 'create' ? ['post', route('admin.trips.store')] : ['put', route('admin.trips.update', ['id' => $trip->id])], 
             'errors' => $errors, 
             'values' => $trip,
-            'customFields' => ['3' => App\Sketchpad\FastForms::formSelect('locations', 'Locations', 'marker', App\Location::getSelectOptions(), $errors, '', true)]
+            'customFields' => [
+                '3' => App\Sketchpad\FastForms::formSelect('locations[]', 'Locations', 'marker', App\Location::getSelectOptions(), $errors, $action == 'edit' ?array_pluck($trip->Locations->toArray(), 'id') : [], true)]
         ]) 
     }}
 
