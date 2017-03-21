@@ -46,14 +46,15 @@
                 @foreach ($maps as $map)
                     googleMaps.initMap('map-{{ $map->id }}');
 
-                    //googleMaps['map-{{ $map->id }}'].setCenter({!! $map->center !!});
-                    //googleMaps['map-{{ $map->id }}'].setZoom({!! $map->zoom !!});
-                    googleMaps['map-{{ $map->id }}'].fitBounds({!! $map->bounds !!});
+                    googleMaps.zoomToBounds(googleMaps['map-{{ $map->id }}'], {!! $map->bounds !!});
+                    googleMaps.drawBounds(googleMaps['map-{{ $map->id }}'], {!! $map->bounds !!});
 
-                    var kmlOverlay = new google.maps.KmlLayer({
-                        url: '{{ Storage::disk('s3')->url($map->kml_filename) }}',
-                        map: googleMaps['map-{{ $map->id }}']
-                    });
+                    @if (!empty($map->kml_filename))
+                        var kmlOverlay = new google.maps.KmlLayer({
+                            url: '{{ Storage::disk('s3')->url($map->kml_filename) }}',
+                            map: googleMaps['map-{{ $map->id }}']
+                        });
+                    @endif
                 @endforeach
             });
         }

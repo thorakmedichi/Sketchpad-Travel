@@ -53,10 +53,12 @@
                     googleMaps.map.setZoom({!! $map->zoom !!});
                     //googleMaps.map.fitBounds({!! $map->bounds !!});
                     
+                    @if (!empty($map->kml_filename))
                     var kmlOverlay = new google.maps.KmlLayer({
                         url: '{{ Storage::disk('s3')->url($map->kml_filename) }}',
                         map: googleMaps.map
                     });
+                    @endif
                 @endif
             });
         }

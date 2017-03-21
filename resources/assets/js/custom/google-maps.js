@@ -490,6 +490,43 @@ var initGoogleMapsObject = function(){
         map.setZoom(zoom);
     }
 
+    // Set the bounds of the map and zoom into them
+    googleMaps.zoomToBounds = function (map, bounds){
+        map.fitBounds(bounds);
+        var thisEvent = google.maps.event.addListener(map, 'idle', function(){
+            var zoom = map.getZoom();
+            var newZoom = parseInt(zoom + 1);
+            map.setZoom(newZoom);
+            
+            google.maps.event.removeListener(thisEvent);
+        });
+    }
+
+    googleMaps.drawBounds = function (map, bounds){
+        var viewportBox;
+        google.maps.event.addListener(map, 'idle', function(event) {
+            var ne = new google.maps.LatLng(bounds.north, bounds.east);
+            var sw = new google.maps.LatLng(bounds.south, bounds.west);
+
+            var viewportPoints = [
+                ne, new google.maps.LatLng(ne.lat(), sw.lng()),
+                sw, new google.maps.LatLng(sw.lat(), ne.lng()), ne
+            ];
+            /*strokeOpacity = 0 , if don't want to show the border moving. */
+            if (viewportBox) {
+                viewportBox.setPath(viewportPoints);
+            } else {
+                viewportBox = new google.maps.Polyline({
+                    path: viewportPoints,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 4 
+                });
+                viewportBox.setMap(map);
+            };
+        });
+    }
+
     /**
      * ///  AUTOCOMPLETE SEARCH
      * ///////////////////////////////////////////////////////
