@@ -6,6 +6,13 @@
 
 @section('panel-content')
 
-    {{ App\Sketchpad\FastForms::generate('images', route('admin.images.store'), $errors, $image) }}
+    {{ 
+        App\Sketchpad\FastForms::generate([
+            'table' => 'images',
+            'action' => $action == 'create' ? ['post', route('admin.images.store')] : ['put', route('admin.images.update', ['id' => $image->id])], 
+            'errors' => $errors, 
+            'values' => $image 
+        ]) 
+    }}
 
 @endsection

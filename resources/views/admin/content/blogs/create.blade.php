@@ -6,8 +6,13 @@
 
 @section('panel-content')
 
-    {{ App\Sketchpad\FastForms::generate('blogs', route('admin.blogs.store'), $errors, $blog, ['3', function() use ($blog, $errors){
-    	App\Sketchpad\FastForms::formSelect('Relation', 'blog_relation', 'pencil', App\BlogRelation::getSelectOptions(), $errors, !empty($blog) ? $blog->Relation()->type : null);
-    	}]) }}
+    {{ 
+        App\Sketchpad\FastForms::generate([
+            'table' => 'blogs',
+            'action' => $action == 'create' ? ['post', route('admin.blogs.store')] : ['put', route('admin.blogs.update', ['id' => $blog->id])], 
+            'errors' => $errors, 
+            'values' => $blog 
+        ]) 
+    }}
 
 @endsection
