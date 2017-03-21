@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Map;
 use Illuminate\Http\Request;
 use App\Http\Requests\MapRequest;
+use Illuminate\Support\Facades\Storage;
 
 class MapController extends Controller
 {
@@ -117,9 +118,14 @@ class MapController extends Controller
         $file = $request->file('kml_file');
         $fileName = $file->getClientOriginalName();
         $filePath = 'kml';
+        $s3Name = $filePath .'/'. $fileName;
+
+        if (Storage::disk('s3')->exists($s3Name)){
+            Storage::disk('s3')->delete($s3Name);
+        }
 
         $request->file('kml_file')->storeAs($filePath, $fileName, ['disk' => 's3', 'visibility' => 'public']);
 
-        return $filePath .'/' .$fileName;
+        return $s3Name;
     }
 }

@@ -47,13 +47,14 @@
                     googleMaps.initMap('map-{{ $map->id }}');
 
                     googleMaps.zoomToBounds(googleMaps['map-{{ $map->id }}'], {!! $map->bounds !!});
-                    googleMaps.drawBounds(googleMaps['map-{{ $map->id }}'], {!! $map->bounds !!});
 
                     @if (!empty($map->kml_filename))
                         var kmlOverlay = new google.maps.KmlLayer({
                             url: '{{ Storage::disk('s3')->url($map->kml_filename) }}',
                             map: googleMaps['map-{{ $map->id }}']
                         });
+                    @else
+                        googleMaps.drawBounds(googleMaps['map-{{ $map->id }}'], {!! $map->bounds !!});
                     @endif
                 @endforeach
             });
