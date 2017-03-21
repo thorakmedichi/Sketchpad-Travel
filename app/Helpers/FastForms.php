@@ -125,7 +125,7 @@ class FastForms {
                 continue;
             }
 
-            if (strpos($field, '_id') !== false){
+            if (strpos($field, '_id') !== false && strpos($field, 'google_place_id') === false){
                 $exploded = explode('_', $field);
                 $name = ucfirst($exploded[0]);
                 $table = 'App\\'. $name;

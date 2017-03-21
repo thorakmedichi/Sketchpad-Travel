@@ -89,7 +89,7 @@ var initGoogleMapsObject = function(){
 
     // Place a single marker on the map and make it movable and recordable
     googleMaps.placeMoveableMarker = function (map, location){
-        googleMaps.placeMarker(map, location, null, true);
+        return googleMaps.placeMarker(map, location, null, true);
     }
 
     // Turn a markers visibility on or off
@@ -422,14 +422,14 @@ var initGoogleMapsObject = function(){
      // Get the address component from the Google Map Place Object
      // These include, locality (city), Administrative Area (province), country etc
     googleMaps.getAddressComponent = function(place, key){
-        var address_components = place.address_components;
-        var x = void 0;
-        for (x in address_components) {
-            var arrayKey = address_components[x];
+        var addressComponents = place.address_components;
+        var x;
+        for (x in addressComponents) {
+            var arrayKey = addressComponents[x];
             var componentName = arrayKey.types[0];
 
             if (key == componentName){
-                return {long_name: address_components[x].long_name, short_name: address_components[x].short_name}
+                return {long_name: addressComponents[x].long_name, short_name: addressComponents[x].short_name}
             }
         }
         return false;
@@ -504,8 +504,11 @@ var initGoogleMapsObject = function(){
         var location = googleMaps.getCoordinatesFromPlace(place);
 
         googleMaps.clearMarkers();
-        googleMaps.placeMoveableMarker(map, location);
+
+        var marker = googleMaps.placeMoveableMarker(map, location);
         googleMaps.zoomToCoordinates(map, location);
+
+        return marker;
     };
 
     // Add the search input text field into the map object
@@ -551,10 +554,11 @@ var initGoogleMapsObject = function(){
 
         if (typeof callback !== 'undefined' && callback !== null){
             autoComplete.addListener('place_changed', callback);
+
         } else {
             //googleMaps.autoCompleteAddMarker.bind(this, map);
             autoComplete.addListener('place_changed', function(){
-                googleMaps.autoCompleteAddMarker(this, map);
+                return googleMaps.autoCompleteAddMarker(this, map);
             });
         }
     }
