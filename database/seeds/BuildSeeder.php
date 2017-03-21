@@ -12,11 +12,6 @@ class BuildSeeder extends Seeder
     public function run()
     {
 
-        DB::table('countries')->insert([
-            'id' => 'CA',
-            'long_name' => 'Canada'
-        ]);
-
         DB::table('authors')->insert([
             'user_id' => '1',
             'image_id' => null,

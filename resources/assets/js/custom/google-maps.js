@@ -55,7 +55,7 @@ var initGoogleMapsObject = function(){
     }
 
     // Place a single marker on the map and add it to the marker array
-    googleMaps.placeMarker = function (map, location, icon, draggable){
+    googleMaps.placeMarker = function (map, location, icon, draggable, callback){
         if (typeof icon == 'undefined' || icon == null){
             var icon = googleMaps.genericMarkerIcon;
         }
@@ -76,10 +76,8 @@ var initGoogleMapsObject = function(){
         googleMaps.markers.push({location: location, marker: marker});
 
         // Define event listeners
-        if (draggable){
-            marker.addListener('dragend', function(){
-                var location = this.getPosition();
-            });
+        if (draggable && typeof callback === 'function'){
+            marker.addListener('dragend', callback);
         }
 
         googleMaps.markerBounds.extend(location);
@@ -88,8 +86,8 @@ var initGoogleMapsObject = function(){
     }
 
     // Place a single marker on the map and make it movable and recordable
-    googleMaps.placeMoveableMarker = function (map, location){
-        return googleMaps.placeMarker(map, location, null, true);
+    googleMaps.placeMoveableMarker = function (map, location, icon, callback){
+        return googleMaps.placeMarker(map, location, icon, true, callback);
     }
 
     // Turn a markers visibility on or off
@@ -502,11 +500,10 @@ var initGoogleMapsObject = function(){
     googleMaps.autoCompleteAddMarker = function(that, map) {
         var place = that.getPlace();
         var location = googleMaps.getCoordinatesFromPlace(place);
+        var marker = googleMaps.placeMarker(map, location);
 
-        googleMaps.clearMarkers();
-
-        var marker = googleMaps.placeMoveableMarker(map, location);
         googleMaps.zoomToCoordinates(map, location);
+        googleMaps.clearMarkers();
 
         return marker;
     };

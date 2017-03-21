@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Location;
 use Illuminate\Http\Request;
+use App\Http\Requests\LocationRequest;
 
 class LocationController extends Controller
 {
@@ -82,7 +83,7 @@ class LocationController extends Controller
      */
     public function update(LocationRequest $request, Location $location)
     {
-        Location::update($request->except('_token'));
+        $location->update($request->except('_token'));
         return redirect()->route('admin.locations.index');
     }
 

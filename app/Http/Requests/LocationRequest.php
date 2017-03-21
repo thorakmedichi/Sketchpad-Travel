@@ -46,9 +46,10 @@ class LocationRequest extends FormRequest
     public function rules()
     {
         return [
-            'country_id' => 'required|integer',
+            'country_id' => 'required|string|size:2',
             'image_id' => 'nullable|integer',
             'map_id' => 'nullable|integer',
+            'google_place_id' => 'nullable|string',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
             'name' => 'required|string',

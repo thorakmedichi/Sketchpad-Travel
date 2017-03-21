@@ -29,15 +29,14 @@
     <script src="{{ url('js/google-maps/admin.js') }}"></script>
 
     <script>
-        function inSelect(elementId, value){
-            var exists = false;
-            for(var i = 0, opts = document.getElementById(elementId).options; i < opts.length; ++i){
-               if( opts[i].value === value ){
-                  exists = true; 
-                  break;
-               }
-            }
-            return exists;
+        function updateLatLngInputs(lat, lng){
+            // Set lat
+            var latEl = document.getElementById('lat');
+            if (latEl) latEl.value = lat;
+
+            // Set lng
+            var lngEl = document.getElementById('lng');
+            if (lngEl) lngEl.value = lng;
         }
 
         function initMap(){
@@ -47,43 +46,38 @@
 
                 @if(Route::currentRouteName() === 'admin.locations.edit')
                     var location = {"lat": {!! $location->lat !!}, "lng": {!! $location->lng !!}};
-                    googleMaps.map.setCenter(location);
-                    googleMaps.map.setZoom(6);
+                    googleMaps.zoomToCoordinates(googleMaps.map, location);
 
-                    googleMaps.placeMarker(googleMaps.map, location, googleMaps.genericMarkerIcon);
-                    googleMaps.autoCompleteSearch(googleMaps.map, 'map', function(){
-                        var marker = googleMaps.autoCompleteAddMarker(this, googleMaps.map);
-                        var place = this.getPlace();
-                        var country = googleMaps.getAddressComponent(place, 'country');
-
-                        // create and select option
-                        var select = document.getElementById("country_id");
-                        if (!inSelect('country_id', country.short_name)){
-                            var option = document.createElement("option");
-                            option.text = country.long_name;
-                            option.value = country.short_name;
-                            select.appendChild(option);
-                        } 
-                        select.value = country.short_name;
-
-                        // Set name
-                        var name = document.getElementById('name');
-                        if (name) name.value = place.name;
-
-                        // Set Google Place Id
-                        var name = document.getElementById('google_place_id');
-                        if (name) name.value = place.place_id;
-
-                        // Set lat
-                        var lat = document.getElementById('lat');
-                        if (lat) lat.value = place.geometry.location.lat();
-
-                        // Set lng
-                        var lng = document.getElementById('lng');
-                        if (lng) lng.value = place.geometry.location.lng();
+                    googleMaps.placeMoveableMarker(googleMaps.map, location, null, function(){
+                        updateLatLngInputs(this.position.lat(), this.position.lng());
                     });
-                    
                 @endif
+
+                googleMaps.autoCompleteSearch(googleMaps.map, 'map', function(){
+                    var place = this.getPlace();
+                    var country = googleMaps.getAddressComponent(place, 'country');
+
+                    googleMaps.clearMarkers();
+                    googleMaps.zoomToCoordinates(googleMaps.map, googleMaps.getCoordinatesFromPlace(place));
+
+                    googleMaps.placeMoveableMarker(googleMaps.map, googleMaps.getCoordinatesFromPlace(place), null, function(){
+                        updateLatLngInputs(this.position.lat(), this.position.lng());
+                    });
+
+                    // create and select option
+                    var select = document.getElementById("country_id");
+                    if (select) select.value = country.short_name;
+
+                    // Set name
+                    var name = document.getElementById('name');
+                    if (name) name.value = place.name;
+
+                    // Set Google Place Id
+                    var name = document.getElementById('google_place_id');
+                    if (name) name.value = place.place_id;
+
+                    updateLatLngInputs(place.geometry.location.lat(), place.geometry.location.lng());
+                });
             });
         }
     </script>
