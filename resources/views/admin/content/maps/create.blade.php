@@ -6,7 +6,7 @@
 
 @section('panel-content')
 
-    {{ App\Sketchpad\FastForms::formDropzone('kml-dropzone', route('ajax.maps.dropzone')) }}
+    {{ App\Sketchpad\FastForms::formDropzone('kml-dropzone', route('ajax.maps.dropzone.upload')) }}
 
     <?php 
         App\Sketchpad\FastForms::generate([
@@ -15,16 +15,20 @@
             'errors' => $errors, 
             'values' => $map, 
             'ignoreFields' => ['kml_filename'],
+            'hiddenFields' => ['bounds', 'center', 'zoom'],
             'customFields' => [
-                '0' => '<div class="form-group">
-                            <div class="col-md-12">
-                                <label>KML Filename</label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-file fa-lg"></i></span>
-                                    <input type="text" id="kml_filename" name="kml_filename" value="'. (!empty($map->kml_filename) ? $map->kml_filename : '') .'" readonly="true" class="form-control">
+                '0' => '<div class="form-inline">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>KML Filename</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-file fa-lg"></i></span>
+                                        <input type="text" id="kml_filename" name="kml_filename" value="'. (!empty($map->kml_filename) ? $map->kml_filename : '') .'" readonly="true" class="form-control">
+                                    </div>
+                                    <a href="#" id="removeKml" class="btn btn-sm btn-danger">Remove</a>
                                 </div>
                             </div>
-                        </div>',
+                        </div><hr/>',
                 '2' => '<div id="map">
                             <div id="markerMenu" style="display: none;"></div>
                         </div>',
@@ -42,29 +46,57 @@
     <script src="{{ url('js/google-maps/admin.js') }}"></script>
 
     <script>
+        Dropzone.autoDiscover = false;
 
-        Dropzone.options.kmlDropzone = {
-            maxFiles: 1,
-            maxFilesize: 8, // MB
-            acceptedFiles: '.kml',
-            paramName: 'kml_file',
-            headers: {
-                'X-CSRF-Token': Laravel.csrfToken
-            },
-            init: function(){
-                this.on('success', function(file, response){
-                    document.getElementById('kml_filename').value = response.s3Name;
-                    var kmlOverlay = new google.maps.KmlLayer({
-                        url: Laravel.s3DiskUrl +'/'+ response.s3Name,
-                        map: googleMaps.map
+        $(function(){
+            var kmlDropzone = new Dropzone('#kml-dropzone', {
+                maxFiles: 1,
+                maxFilesize: 8, // MB
+                acceptedFiles: '.kml',
+                paramName: 'kml_file',
+                addRemoveLinks: true,
+                headers: {
+                    'X-CSRF-Token': Laravel.csrfToken
+                },
+                init: function(){
+                    this.on('success', function(file, response){
+                        displayKml(response.s3Name);
                     });
-                });
 
-                this.on('error', function(file, response){
-                    console.log (response);
+                    this.on('removedfile', function(file, response){
+                        removeKml();
+                    });
+
+                    this.on('error', function(file, response, xhr){
+                        console.log (response);
+                        console.log (xhr);
+                    });
+                }
+            });
+
+            var removeKml = function removeKml(){
+                var filenameField = document.getElementById('kml_filename');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('ajax.maps.dropzone.delete') }}',
+                    data: {map_id: '{{ !empty($map->id) ? $map->id : null }}', filename: filenameField.value, _token: Laravel.csrfToken},
+                    dataType: 'json'
+                }).done(function(response){
+                    filenameField.value = '';
+                    kmlDropzone.removeAllFiles( true );
                 });
             }
-        };
+
+            document.getElementById('removeKml').onclick = function(){
+                removeKml();
+            }
+        });
+
+        function displayKml(name){
+            document.getElementById('kml_filename').value = name;
+            googleMaps.displayKml(googleMaps.map, Laravel.s3DiskUrl +'/'+ name);
+        }
 
         function initMap(){
             $(function(){
@@ -74,13 +106,9 @@
                 @if(Route::currentRouteName() === 'admin.maps.edit')
                     googleMaps.map.setCenter({!! $map->center !!});
                     googleMaps.map.setZoom({!! $map->zoom !!});
-                    //googleMaps.map.fitBounds({!! $map->bounds !!});
                     
                     @if (!empty($map->kml_filename))
-                    var kmlOverlay = new google.maps.KmlLayer({
-                        url: '{{ Storage::disk('s3')->url($map->kml_filename) }}',
-                        map: googleMaps.map
-                    });
+                        displayKml('{{ $map->kml_filename }}');
                     @endif
                 @endif
             });

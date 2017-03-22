@@ -19,4 +19,16 @@ class Map extends Model
     public static function getSelectOptions(){
         return self::orderBy('name')->pluck('name', 'id');
     }
+
+
+    public static function deleteFilenameFromDb($id, $filename){
+        try {
+            Map::where([['id', $id], ['kml_filename', $filename]])->update(['kml_filename' => null]);
+        }
+        catch (Exception $ex) {
+            throw $ex;
+        }
+
+        return true;
+    }
 }

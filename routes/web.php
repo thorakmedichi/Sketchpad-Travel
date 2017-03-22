@@ -57,6 +57,8 @@ Route::prefix('/ajax')
 	->middleware(['auth', 'ajax'])
 	->group(function(){
 
-	Route::post('kml', 'FileController@kml')->name('maps.dropzone');
+	Route::post('s3/delete', 'FileController@deleteS3File')->name('dropzone.delete');
 
+	Route::post('kml/upload', 'FileController@kmlUpload')->name('maps.dropzone.upload');
+	Route::post('kml/delete', 'FileController@kmlDelete')->name('maps.dropzone.delete');
 });

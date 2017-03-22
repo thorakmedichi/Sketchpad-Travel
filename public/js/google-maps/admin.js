@@ -273,12 +273,21 @@ var initGoogleMapsObject = function(){
         }).promise();
     };
 
+    /**
+     * ///  KML DATA
+     * ///////////////////////////////////////////////////////
+     */
+    googleMaps.displayKml = function(map, url){
+        var kmlOverlay = new google.maps.KmlLayer({
+            url: url,
+            map: map
+        });
+    }
 
     /**
      * ///  DISTANCE / DIRECTION
      * ///////////////////////////////////////////////////////
      */
-    
      googleMaps.metersToKm = function(meters){
         var totalKms = meters / 1000;
 
@@ -502,6 +511,7 @@ var initGoogleMapsObject = function(){
         });
     }
 
+    // Draw the bounds on the map so they are visible
     googleMaps.drawBounds = function (map, bounds){
         var viewportBox;
         google.maps.event.addListener(map, 'idle', function(event) {

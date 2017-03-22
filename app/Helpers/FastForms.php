@@ -28,6 +28,7 @@ class FastForms {
         $callback = !empty($configArray['callback']) ? $configArray['callback'] : null;
         $ignoreGaurded = !empty($configArray['ignoreGaurded']) ? $configArray['ignoreGaurded'] : true;
         $ignoreFields = !empty($configArray['ignoreFields']) ? $configArray['ignoreFields'] : [];
+        $hiddenFields = !empty($configArray['hiddenFields']) ? $configArray['hiddenFields'] : [];
         $customFields = !empty($configArray['customFields']) ? $configArray['customFields'] : [];
 
 
@@ -41,7 +42,7 @@ class FastForms {
 
         $fields = self::getDatabaseFields($table, $ignoreGaurded);
         
-        self::generateHTML($fields, $ignoreFields, $customFields, $action, $errors, $values, $callback);
+        self::generateHTML($fields, $ignoreFields, $hiddenFields, $customFields, $action, $errors, $values, $callback);
     }
 
     /**
@@ -89,7 +90,7 @@ class FastForms {
      *                                          Typically the function will be a call to one of the static input functions in this class
      * @return    html                          This function simply echo's out the html output
      */
-    public static function generateHTML($fields, $ignoreFields, $customFields, $action, $errors, $values, $callback){
+    public static function generateHTML($fields, $ignoreFields, $hiddenFields, $customFields, $action, $errors, $values, $callback){
         // Run the custom callback first in case it influences the reset of the form data
         if (!empty($callback)){
             $callback();
@@ -138,14 +139,31 @@ class FastForms {
                 $html .= self::formSelect($field, $name, 'pencil', $options, $errors, $values[$field]);
             } 
             else {
-                if (strpos($output['type'], 'varchar') !== false){
+                // HIDDEN fields should be input type hidden
+                if (in_array($field, $hiddenFields)){
+                    $html .= self::formHiddenInput($field, $errors, $values[$field]);
+                }
+                // VARCHAR should be input type text
+                else if (strpos($output['type'], 'varchar') !== false){
                     $html .= self::formInput('text', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
                 }
-
+                // INTEGER should be input type text
                 else if (strpos($output['type'], 'int') !== false){
                     $html .= self::formInput('text', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
                 }
-
+                // DECIMAL should be input type text
+                else if (strpos($output['type'], 'decimal') !== false){
+                    $html .= self::formInput('text', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
+                }
+                // DATE should be input type date
+                else if (strpos($output['type'], 'date') !== false){
+                    $html .= self::formInput('date', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
+                }
+                // TEXT should be a textarea 
+                else if (strpos($output['type'], 'text') !== false){
+                    $html .= self::formTextarea($field, ucfirst($field), 'pencil', $errors, $values[$field]);
+                }
+                // ENUM should be select input
                 else if (strpos($output['type'], 'enum') !== false){
                     $options = [];
 
@@ -156,18 +174,6 @@ class FastForms {
                     }
 
                     $html .= self::formSelect($field, ucfirst($field), 'pencil', $options, $errors, $values[$field]);
-                }
-
-                else if (strpos($output['type'], 'text') !== false){
-                    $html .= self::formTextarea($field, ucfirst($field), 'pencil', $errors, $values[$field]);
-                }
-
-                else if (strpos($output['type'], 'decimal') !== false){
-                    $html .= self::formInput('text', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
-                }
-
-                else if (strpos($output['type'], 'date') !== false){
-                    $html .= self::formInput('date', $field, ucfirst($field), 'pencil', $errors, $values[$field]);
                 }
             }
         }
@@ -228,6 +234,20 @@ class FastForms {
     }
 
     /**
+     * Standard HTML HiddenInput Type
+     * @param     string    $name      The name of the field (also used as the id)
+     * @param     array     $errors    The Laravel error collection
+     * @param     array     $value     The value we want to populate the input with, if it exists
+     * @return    html                 The HTML output for this input, including the wrapper
+     */
+    public static function formHiddenInput($name, $errors, $value=''){
+        $value = htmlspecialchars($value);
+        $input = '<input type="hidden" id="'. $name .'" name="'. $name .'" value="'. old($name, $value) .'">';
+
+        return $input;
+    }
+
+    /**
      * Standard HTML Input Type
      * @param     string    $type      The type of the input. (text, date, email, etc)
      * @param     string    $name      The name of the field (also used as the id)
@@ -239,7 +259,7 @@ class FastForms {
      */
     public static function formInput($type, $name, $label, $icon, $errors, $value=''){
         $value = htmlspecialchars($value);
-        $input = '<input type="'. $type .'" id="'. $name .'" name="'. $name .'" value="'. old('', $value) .'" placeholder="'. $label .'" class="form-control">';
+        $input = '<input type="'. $type .'" id="'. $name .'" name="'. $name .'" value="'. old($name, $value) .'" placeholder="'. $label .'" class="form-control">';
 
         return self::inputWrapper($name, $label, $input, $icon, $errors);
     }

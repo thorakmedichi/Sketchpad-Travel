@@ -85,11 +85,8 @@ class MapController extends Controller
      */
     public function update(MapRequest $request, Map $map)
     {   
-        // Upload the file to S3 and add filename to request inputs
-        $request->merge(['kml_filename' => $this->uploadFile($request)]);        
-
         // Update database
-        $map->update($request->except(['_token', '_method', 'kml_file']));
+        $map->update($request->except(['_token', '_method']));
         return redirect()->route('admin.maps.index');
     }
 
