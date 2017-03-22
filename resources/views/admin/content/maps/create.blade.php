@@ -5,14 +5,12 @@
 
 
 @section('panel-content')
-    
-
 
     <div id="map">
         <div id="markerMenu" style="display: none;"></div>
     </div>
 
-    {{ App\Sketchpad\FastForms::formDropzone(route('api.maps.dropzone')) }}
+    {{ App\Sketchpad\FastForms::formDropzone('kml-dropzone', route('ajax.maps.dropzone')) }}
 
     <?php 
         App\Sketchpad\FastForms::generate([
@@ -30,8 +28,7 @@
                             <input type="text" id="kml_filename" name="kml_filename" value="'. (!empty($map->kml_filename) ? $map->kml_filename : '') .'" readonly="true" class="form-control">
                         </div>
                     </div>
-                </div>',
-                App\Sketchpad\FastForms::formFile('kml_file', 'KML File', $errors)
+                </div>'
             ],
             ]);
     ?>
@@ -46,6 +43,30 @@
     <script src="{{ url('js/google-maps/admin.js') }}"></script>
 
     <script>
+
+        Dropzone.options.kmlDropzone = {
+            maxFiles: 1,
+            maxFilesize: 8, // MB
+            acceptedFiles: '.kml',
+            paramName: 'kml_file',
+            headers: {
+                'X-CSRF-Token': Laravel.csrfToken
+            },
+            init: function(){
+                this.on('success', function(file, response){
+                    document.getElementById('kml_filename').value = response.s3Name;
+                    var kmlOverlay = new google.maps.KmlLayer({
+                        url: Laravel.s3DiskUrl +'/'+ response.s3Name,
+                        map: googleMaps.map
+                    });
+                });
+
+                this.on('error', function(file, response){
+                    console.log (response);
+                });
+            }
+        };
+
         function initMap(){
             $(function(){
                 initGoogleMapsObject();
@@ -63,8 +84,6 @@
                     });
                     @endif
                 @endif
-
-                //var myDropzone = new Dropzone('#kml_files', { url: '/file/post', paramName: 'kml_file'});
             });
         }
     </script>

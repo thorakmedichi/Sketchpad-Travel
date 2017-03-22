@@ -53,10 +53,10 @@ Route::prefix('/admin')
  * --------------------------------------------
  */
 Route::prefix('/ajax')
-	->as('admin.')
+	->as('ajax.')
 	->middleware(['auth', 'ajax'])
 	->group(function(){
 
-	Route::get('kml', 'FileController@kml');
+	Route::post('kml', 'FileController@kml')->name('maps.dropzone');
 
 });

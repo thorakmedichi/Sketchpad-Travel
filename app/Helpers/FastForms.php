@@ -304,8 +304,8 @@ class FastForms {
      * @param     array     $errors    The Laravel error collection
      * @return    html                 The HTML output for this input, including the wrapper
      */
-    public static function formDropzone($action){
-        echo '<form action="'. $action .'" class="dropzone" id="my-awesome-dropzone"></form>';
+    public static function formDropzone($id, $action){
+        echo '<form action="'. $action .'" class="dropzone" id="'. $id .'" enctype="multipart/form-data">'. csrf_field() .'</form>';
     }
 
     /**

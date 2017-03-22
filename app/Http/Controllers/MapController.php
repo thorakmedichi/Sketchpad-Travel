@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Map;
 use Illuminate\Http\Request;
 use App\Http\Requests\MapRequest;
-use Illuminate\Support\Facades\Storage;
 
 class MapController extends Controller
 {
@@ -44,11 +43,8 @@ class MapController extends Controller
      */
     public function store(MapRequest $request)
     {   
-        // Upload the file to S3 and add filename to request inputs
-        $request->merge(['kml_filename' => $this->uploadFile($request)]);   
-
         // Create the DB object
-        Map::firstOrCreate($request->except(['_token', '_method', 'kml_file']));
+        Map::firstOrCreate($request->except(['_token', '_method']));
 
         return redirect()->route('admin.maps.index');
     }
@@ -106,26 +102,5 @@ class MapController extends Controller
     public function destroy(Map $map)
     {
         //
-    }
-
-    private function uploadFile(MapRequest $request){
-        // If the person is updating a map and already has a kml file uploaded to S3
-        // and hasn't selected a new file to upload then leave it as it is
-        if (!$request->hasFile('kml_file')){
-            return $request->input('kml_filename');
-        }
-
-        $file = $request->file('kml_file');
-        $fileName = $file->getClientOriginalName();
-        $filePath = 'kml';
-        $s3Name = $filePath .'/'. $fileName;
-
-        if (Storage::disk('s3')->exists($s3Name)){
-            Storage::disk('s3')->delete($s3Name);
-        }
-
-        $request->file('kml_file')->storeAs($filePath, $fileName, ['disk' => 's3', 'visibility' => 'public']);
-
-        return $s3Name;
     }
 }
