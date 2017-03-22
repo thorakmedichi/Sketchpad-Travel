@@ -24,9 +24,10 @@ class FileController extends Controller
             return response()->json([
                 's3Name' => $s3Name
             ], 200);
-        } catch (Exception $ex) {
+        } 
+        catch (Exception $ex) {
            return response()->json([
-                'message' => $e->getMessage()
+                'message' => $ex->getMessage()
             ], 400); 
         }
     }

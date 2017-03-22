@@ -6,10 +6,6 @@
 
 @section('panel-content')
 
-    <div id="map">
-        <div id="markerMenu" style="display: none;"></div>
-    </div>
-
     {{ App\Sketchpad\FastForms::formDropzone('kml-dropzone', route('ajax.maps.dropzone')) }}
 
     <?php 
@@ -20,17 +16,20 @@
             'values' => $map, 
             'ignoreFields' => ['kml_filename'],
             'customFields' => [
-                '<div class="form-group">
-                    <div class="col-md-12">
-                        <label>KML Filename</label>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-file fa-lg"></i></span>
-                            <input type="text" id="kml_filename" name="kml_filename" value="'. (!empty($map->kml_filename) ? $map->kml_filename : '') .'" readonly="true" class="form-control">
-                        </div>
-                    </div>
-                </div>'
+                '0' => '<div class="form-group">
+                            <div class="col-md-12">
+                                <label>KML Filename</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-file fa-lg"></i></span>
+                                    <input type="text" id="kml_filename" name="kml_filename" value="'. (!empty($map->kml_filename) ? $map->kml_filename : '') .'" readonly="true" class="form-control">
+                                </div>
+                            </div>
+                        </div>',
+                '2' => '<div id="map">
+                            <div id="markerMenu" style="display: none;"></div>
+                        </div>',
             ],
-            ]);
+        ]);
     ?>
 
 @endsection
