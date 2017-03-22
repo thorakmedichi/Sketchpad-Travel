@@ -19,4 +19,5 @@ mix.copy('node_modules/font-awesome/fonts', 'resources/assets/fonts')
              'resources/assets/js/custom/google-maps-integrations.js'
             ], 'public/js/google-maps/admin.js')
    .sass('resources/assets/sass/app.scss', 'public/css')
-   .sass('resources/assets/sass/admin.scss', 'public/css');
+   .sass('resources/assets/sass/admin.scss', 'public/css')
+   .sass('resources/assets/sass/errors.scss', 'public/css');

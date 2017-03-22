@@ -17,9 +17,8 @@ class AllowOnlyAjaxRequests
     {
         if(!$request->ajax()) {
             // Handle the non-ajax request
-            return response('', 405);
+            abort(405);
         }
-
         return $next($request);
     }
 }

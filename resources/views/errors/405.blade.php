@@ -6,10 +6,10 @@
 {{-- Content --}}
 @section('content')
 <div class="container">
-    <div class="inner">
-        <h1>404</h1>
-        <h2>Oops!</h2>
-        <p>Page Not Found.</p>
-    </div>
+	<div class="inner">
+		<h1>405</h1>
+		<h2>Oops!</h2>
+		<p>Method Not Allowed.</p>
+	</div>
 </div>
 @stop
