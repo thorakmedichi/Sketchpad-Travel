@@ -298,6 +298,17 @@ class FastForms {
     }
 
     /**
+     * HTML Dropzone
+     * @param     string    $name      The name of the field (also used as the id)
+     * @param     string    $label     The text to be used for the label
+     * @param     array     $errors    The Laravel error collection
+     * @return    html                 The HTML output for this input, including the wrapper
+     */
+    public static function formDropzone($action){
+        echo '<form action="'. $action .'" class="dropzone" id="my-awesome-dropzone"></form>';
+    }
+
+    /**
      * HTML Checkbox input
      * @param     string    $name           The name of the field (also used as the id)
      * @param     string    $label          The text to be used for the label
@@ -326,17 +337,7 @@ class FastForms {
             </div>';
     }
 
-    // public static function formDropzone($name, $label, $errors){
-    //     echo '
-    //         <div class="form-group '. ($errors->has($name) ? "has-error" : "") .'">
-    //             <label class="col-md-3 control-label">'. $label .'</label>
-
-    //             <div class="col-md-8">
-    //                 <div id="'. $name .'" class="dropzone"></div>
-    //                 '. self::viewError($errors, $name) .'
-    //             </div>
-    //         </div>';
-    // }
+    
 
     // public static function formTimePicker($name, $label, $defaultTime, $errors){
     //     echo '

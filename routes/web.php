@@ -46,3 +46,17 @@ Route::prefix('/admin')
 		Route::resource('/images', 'ImageController');
 
 });
+
+
+/* --------------------------------------------
+ * Ajax only routes
+ * --------------------------------------------
+ */
+Route::prefix('/ajax')
+	->as('admin.')
+	->middleware(['auth', 'ajax'])
+	->group(function(){
+
+	Route::get('kml', 'FileController@kml');
+
+});

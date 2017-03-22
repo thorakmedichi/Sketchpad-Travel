@@ -11,6 +11,13 @@ window.$ = window.jQuery = require('jquery');
 
 require('bootstrap-sass');
 
+
+/**
+ * We'll load Dropzone to create a nicer user interface for handling
+ * file uploads
+ */
+window.Dropzone = require('dropzone');
+
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
  * using reactive data binding and reusable components. Vue's API is clean

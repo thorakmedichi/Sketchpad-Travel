@@ -6,10 +6,13 @@
 
 @section('panel-content')
     
+
+
     <div id="map">
         <div id="markerMenu" style="display: none;"></div>
     </div>
 
+    {{ App\Sketchpad\FastForms::formDropzone(route('api.maps.dropzone')) }}
 
     <?php 
         App\Sketchpad\FastForms::generate([
@@ -60,6 +63,8 @@
                     });
                     @endif
                 @endif
+
+                //var myDropzone = new Dropzone('#kml_files', { url: '/file/post', paramName: 'kml_file'});
             });
         }
     </script>
