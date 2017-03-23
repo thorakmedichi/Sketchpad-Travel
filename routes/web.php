@@ -61,4 +61,7 @@ Route::prefix('/ajax')
 
 	Route::post('kml/upload', 'FileController@kmlUpload')->name('maps.dropzone.upload');
 	Route::post('kml/delete', 'FileController@kmlDelete')->name('maps.dropzone.delete');
+
+	Route::post('image/upload', 'FileController@imageUpload')->name('images.dropzone.upload');
+	Route::post('image/delete', 'FileController@imageDelete')->name('images.dropzone.delete');
 });

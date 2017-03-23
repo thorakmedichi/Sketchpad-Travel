@@ -18096,6 +18096,28 @@ a.list-group-item-dark:hover, a.list-group-item-dark:focus {
   margin-bottom: 6px;
 }
 
+.image-thumbnail {
+  height: 100px;
+  width: auto;
+}
+
+.image-preview-container {
+  height: 210px;
+}
+
+.image-preview-container .image-preview {
+  height: 200px;
+  width: auto;
+  margin-top: 10px;
+  border: 1px solid silver;
+  padding: 5px;
+  box-shadow: 10px 10px 12px -10px #adadad;
+}
+
+.image-preview-container .image-preview:hover {
+  height: 205px;
+}
+
 /**
  * MAPS
  */

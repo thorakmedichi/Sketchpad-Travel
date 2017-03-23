@@ -6,7 +6,7 @@
 
 @section('panel-content')
     
-    {{ App\Sketchpad\FastForms::formDropzone('kml-dropzone', route('ajax.maps.dropzone.upload')) }}
+    {{ App\Sketchpad\FastForms::formDropzone('file-dropzone', route('ajax.images.dropzone.upload')) }}
 
     {{ 
         App\Sketchpad\FastForms::generate([
@@ -19,15 +19,19 @@
                 '0' => '<div class="form-inline">
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label>KML Filename</label>
+                                    <label>Filename</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-file fa-lg"></i></span>
                                         <input type="text" id="filename" name="filename" value="'. old('filename', (!empty($image->filename) ? $image->filename : '')) .'" readonly="true" class="form-control">
                                     </div>
-                                    <a href="#" id="removeKml" class="btn btn-sm btn-danger">Remove</a>
+                                    <a href="#" id="removeFile" class="btn btn-sm btn-danger">Remove</a>
                                 </div>
                             </div>
-                        </div><hr/>'
+                        </div>
+                        <div class="image-preview-container">
+                            <img src="'. (!empty($image->filename) ? Storage::disk('s3')->url($image->filename) : '') .'" class="image-preview" />
+                        </div>
+                        <hr/>',
             ]
         ]) 
     }}
@@ -39,11 +43,11 @@
         Dropzone.autoDiscover = false;
 
         $(function(){
-            var kmlDropzone = new Dropzone('#kml-dropzone', {
+            var kmlDropzone = new Dropzone('#file-dropzone', {
                 maxFiles: 1,
                 maxFilesize: 8, // MB
-                acceptedFiles: '.kml',
-                paramName: 'kml_file',
+                acceptedFiles: '.png, .jpg',
+                paramName: 'image_file',
                 addRemoveLinks: true,
                 dictDefaultMessage: '<h3>Click or drag files here to upload</h3><p>Please note that you can only upload one file. Also, if you have an existing file with this same name it will be deleted.</p>',
                 headers: {
@@ -51,22 +55,23 @@
                 },
                 init: function(){
                     this.on('success', function(file, response){
-                        displayKml(response.s3Name);
+                        document.getElementById('filename').value = response.s3Name;
                     });
 
                     this.on('removedfile', function(file, response){
-                        removeKml();
+                        removeFile();
                     });
 
                     this.on('error', function(file, response, xhr){
+                        this.defaultOptions.error(file, response.message); 
                         console.log (response);
                         console.log (xhr);
                     });
                 }
             });
 
-            var removeKml = function removeKml(){
-                var filenameField = document.getElementById('kml_filename');
+            var removeFile = function removeFile(){
+                var filenameField = document.getElementById('filename');
 
                 $.ajax({
                     type: 'POST',
@@ -79,8 +84,8 @@
                 });
             }
 
-            document.getElementById('removeKml').onclick = function(){
-                removeKml();
+            document.getElementById('removeFile').onclick = function(){
+                removeFile();
             }
         });
 

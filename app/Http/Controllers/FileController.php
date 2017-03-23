@@ -22,17 +22,16 @@ class FileController extends Controller
         return true;
     }
 
-    public function kmlUpload(Request $request){
+    public function fileUpload(Request $request, $input, $filePath){
         try {
-            $file = $request->file('kml_file');
+            $file = $request->file($input);
             $fileName = $file->getClientOriginalName();
-            $filePath = 'kml';
             $s3Name = $filePath .'/'. $fileName;
 
             // Remove any existing file if it exists
             $this->deleteS3File($s3Name);
 
-            $request->file('kml_file')->storeAs($filePath, $fileName, ['disk' => 's3', 'visibility' => 'public']);
+            $request->file($input)->storeAs($filePath, $fileName, ['disk' => 's3', 'visibility' => 'public']);
 
             return response()->json([
                 's3Name' => $s3Name
@@ -43,6 +42,14 @@ class FileController extends Controller
                 'message' => $ex->getMessage()
             ], 400); 
         }
+    }
+
+    public function imageUpload(Request $request){
+        return $this->fileUpload($request, 'image_file', 'images');
+    }
+
+    public function kmlUpload(Request $request){
+        return $this->fileUpload($request, 'kml_file', 'kml');
     }
 
     public function kmlDelete(Request $request){

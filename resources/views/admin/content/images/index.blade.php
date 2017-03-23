@@ -16,7 +16,11 @@
         <tbody>
             @foreach ($images as $image)
             <tr>
-                <td></td>
+                <td>
+                    <a href="{{ route('admin.images.edit', ['id' => $image->id]) }}">
+                        <img src="{{ Storage::disk('s3')->url($image->filename) }}" class="image-thumbnail"/>
+                    </a>
+                </td>
                 <td>{{ $image->name }}</td>
                 <td>{{ $image->filename }}</td>
             </tr>

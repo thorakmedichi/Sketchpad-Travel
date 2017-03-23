@@ -6,6 +6,30 @@
     }
 }
 
+.image-thumbnail {
+    height: 100px;
+    width: auto;
+}
+
+.image-preview-container {
+    height: 210px;
+
+    .image-preview {
+        height: 200px;
+        width: auto;
+        margin-top: 10px;
+        border: 1px solid silver;
+        padding: 5px;
+        -webkit-box-shadow: 10px 10px 12px -10px rgba(173,173,173,1);
+        -moz-box-shadow: 10px 10px 12px -10px rgba(173,173,173,1);
+        box-shadow: 10px 10px 12px -10px rgba(173,173,173,1);
+
+        &:hover {
+            height: 205px;
+        }
+    }
+}
+
 /**
  * MAPS
  */

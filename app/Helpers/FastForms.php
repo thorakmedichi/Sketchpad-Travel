@@ -219,16 +219,16 @@ class FastForms {
      * @param     array     $errors    The Laravel error collection
      * @return    html                 The HTML to be echo'd out
      */
-    public static function inputWrapper($name, $label, $input, $icon, $errors){
+    public static function inputWrapper($name, $label, $input, $icon, $errors=null){
         return '
-            <div class="form-group '. ($errors->has($name) ? 'has-error' : '') .'">
+            <div class="form-group '. (!empty($errors) ? ($errors->has($name) ? 'has-error' : '') : '') .'">
                 <div class="col-md-12">
                     <label>'. ucfirst($label) .'</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-'. $icon .' fa-lg"></i></span>
                         '. $input .'
                     </div>
-                    '. self::viewError($errors, $name) .' 
+                    '. (!empty($errors) ? self::viewError($errors, $name) : '' ). ' 
                 </div>
             </div>';
     }
