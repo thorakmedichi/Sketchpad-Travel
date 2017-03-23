@@ -18025,6 +18025,14 @@ a.list-group-item-dark:hover, a.list-group-item-dark:focus {
   border-bottom-right-radius: 0;
 }
 
+.description-text {
+  margin-bottom: 20px;
+}
+
+.description-text p {
+  margin-bottom: 6px;
+}
+
 /**
  * MAPS
  */

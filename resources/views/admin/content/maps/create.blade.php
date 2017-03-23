@@ -5,6 +5,12 @@
 
 
 @section('panel-content')
+    
+    <div class="description-text">
+        <p>You do not need to upload a KML file. Simply panning around the map and setting your zoom level will define the basic bounding box.</p>
+        <p>If you do add a KML file the map zoom and bounding area will be automatically set.</p>
+        <small>Uploading a file will save your file on your S3 server but will not save this map itself. Remember to add a name and then "Create" the map</small>
+    </div>
 
     {{ App\Sketchpad\FastForms::formDropzone('kml-dropzone', route('ajax.maps.dropzone.upload')) }}
 
