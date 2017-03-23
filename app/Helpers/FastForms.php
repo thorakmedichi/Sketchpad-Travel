@@ -115,7 +115,7 @@ class FastForms {
             }
         }
 
-        // Being HTML output 
+        // Beging HTML output 
         $html = '<form class="form-horizontal" role="form" method="post" enctype="multipart/form-data" action="'. $action[1] .'">'. csrf_field() . method_field($action[0]);
 
         foreach ($fields as $field => $output){
@@ -276,6 +276,11 @@ class FastForms {
      * @return    html                 The HTML output for this input, including the wrapper
      */
     public static function formSelect($name, $label, $icon, $options=[], $errors, $values=[], $multiple=false){
+        // Check if $values is a string or array. If string make it an array
+        if (is_string($values)){
+            $values = [$values];
+        }
+        
         $optionList = '<option value="">Select a '. $label .'</option>';
 
         foreach ($options as $val => $option) {

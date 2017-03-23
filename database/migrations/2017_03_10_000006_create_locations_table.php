@@ -14,12 +14,12 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('visit_date');
             $table->string('name', 256);
             $table->string('country_id', 2);
-            $table->mediumText('description')->nullable();
+            $table->date('visit_date');
             $table->integer('image_id')->unsigned()->nullable();
             $table->integer('map_id')->unsigned()->nullable();
+            $table->mediumText('description')->nullable();
             $table->string('google_place_id', 255)->nullable();
             $table->decimal('lat', 9, 6);
             $table->decimal('lng', 10, 6);

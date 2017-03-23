@@ -15,7 +15,8 @@
             'table' => 'locations',
             'action' => $action == 'create' ? ['post', route('admin.locations.store')] : ['put', route('admin.locations.update', ['id' => $location->id])], 
             'errors' => $errors, 
-            'values' => $location 
+            'values' => $location, 
+            'hiddenFields' => ['google_place_id', 'lat', 'lng']
         ]) 
     }}
 
