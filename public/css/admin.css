@@ -18025,6 +18025,9 @@ a.list-group-item-dark:hover, a.list-group-item-dark:focus {
   border-bottom-right-radius: 0;
 }
 
+/**
+ * MAPS
+ */
 #admin\.maps\.create #map,
 #admin\.maps\.edit #map,
 #admin\.locations\.create #map,
@@ -18042,4 +18045,67 @@ a.list-group-item-dark:hover, a.list-group-item-dark:focus {
 
 #map {
   margin-bottom: 20px;
+}
+
+/**
+ * DROPZONE
+ */
+.dropzone {
+  min-height: 100px;
+  border: 1px dashed red;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: white;
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, white), color-stop(47%, #f6f6f6), color-stop(100%, #ededed));
+  background: -webkit-linear-gradient(top, white 0%, #f6f6f6 47%, #ededed 100%);
+  background: linear-gradient(to bottom, white 0%, #f6f6f6 47%, #ededed 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=0 );
+}
+
+.dropzone .dz-preview {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px;
+  min-height: 80px;
+}
+
+.dropzone .dz-preview.dz-file-preview .dz-image {
+  border-radius: 10px;
+  background: #d4e4ef;
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #d4e4ef), color-stop(100%, #86aecc));
+  background: -webkit-linear-gradient(top, #d4e4ef 0%, #86aecc 100%);
+  background: linear-gradient(to bottom, #d4e4ef 0%, #86aecc 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4e4ef', endColorstr='#86aecc', GradientType=0 );
+}
+
+.dropzone .dz-preview .dz-image {
+  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+}
+
+.dropzone .dz-preview .dz-details {
+  font-size: 10px;
+  padding: 2em 0.5em;
+  color: black;
+}
+
+.dropzone .dz-preview .dz-progress .dz-upload {
+  background: #4c4c4c;
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #4c4c4c), color-stop(12%, #595959), color-stop(25%, #666666), color-stop(39%, #474747), color-stop(50%, #2c2c2c), color-stop(51%, black), color-stop(60%, #111111), color-stop(76%, #2b2b2b), color-stop(91%, #1c1c1c), color-stop(100%, #131313));
+  background: -webkit-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
+  background: linear-gradient(to bottom, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313', GradientType=0 );
+}
+
+.dropzone .dz-preview .dz-remove {
+  font-size: 11px;
+  line-height: 1.5;
+  padding: 3px 5px;
+  margin-top: 5px;
+  background-color: #f65b3d;
+  border-color: #f76549;
+  border-radius: 5px;
+  color: #fff;
 }

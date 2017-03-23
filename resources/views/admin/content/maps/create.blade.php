@@ -55,6 +55,7 @@
                 acceptedFiles: '.kml',
                 paramName: 'kml_file',
                 addRemoveLinks: true,
+                dictDefaultMessage: '<h3>Click or drag files here to upload</h3><p>Please note that you can only upload one file. Also, if you have an existing file with this same name it will be deleted.</p>',
                 headers: {
                     'X-CSRF-Token': Laravel.csrfToken
                 },
