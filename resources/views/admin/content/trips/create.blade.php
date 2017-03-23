@@ -13,7 +13,8 @@
             'errors' => $errors, 
             'values' => $trip,
             'customFields' => [
-                '3' => App\Sketchpad\FastForms::formSelect('locations[]', 'Locations', 'marker', App\Location::getSelectOptions(), $errors, $action == 'edit' ?array_pluck($trip->Locations->toArray(), 'id') : [], true)]
+                '3' => App\Sketchpad\FastForms::formSelect('locations[]', 'Locations', 'marker', App\Location::getSelectOptions(), $errors, $action == 'edit' ?array_pluck($trip->Locations->toArray(), 'id') : [], true)
+            ]
         ]) 
     }}
 

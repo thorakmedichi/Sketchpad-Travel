@@ -69,8 +69,6 @@ class BlogController extends Controller
             'blog' => $blog,
             'action' => 'edit'
         ];
-pre_r ($blog->Locations, true);
-pre_r ($blog->Trips, true);
         return view('admin.content.blogs.create', $data);
     }
 
