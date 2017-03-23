@@ -6,6 +6,8 @@ use App\Image;
 use Illuminate\Http\Request;
 use App\Http\Requests\ImageRequest;
 
+use Intervention\Image\Facades\Image as InterventionImage;
+
 class ImageController extends Controller
 {
     /**
@@ -18,6 +20,7 @@ class ImageController extends Controller
         $data = [
             'images' => Image::get()
         ];
+
         return view('admin.content.images.index', $data);
     }
 
@@ -95,6 +98,7 @@ class ImageController extends Controller
      */
     public function destroy(Image $image)
     {
-        //
+        $image->delete();
+        return redirect()->route('admin.images.index');
     }
 }

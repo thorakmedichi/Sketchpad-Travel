@@ -182,6 +182,7 @@ return [
          * Third Party Vendor Service Providers...
          */
         HttpOz\Roles\RolesServiceProvider::class, 
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Custom Service Providers...
@@ -238,9 +239,14 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         /*
-         * Custom Service Providers...
+         * Third Party Vendor Aliases...
          */
-        'Form' => App\SketchpadForms\Form::class,
+        'InterventionImage' => Intervention\Image\Facades\Image::class,
+
+        /*
+         * Custom Aliases...
+         */
+        'FastForms' => App\Sketchpad\FastForms::class,
     ],
 
 ];

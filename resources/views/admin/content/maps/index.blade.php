@@ -11,6 +11,7 @@
                 <th>Name</th>
                 <th>Preview</th>
                 <th>KML File</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +24,12 @@
                     </div>
                 </td>
                 <td>{{ $map->kml_filename }}</td>
+                <td>
+                    <form action="{{ route('admin.maps.destroy', ['id' => $map->id]) }}" role="form" method="post">
+                        {{ csrf_field() }}{{ method_field('DELETE') }}
+                        <button class="btn btn-sm btn-danger pull-right">Delete</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>

@@ -12,6 +12,7 @@
                 <th>Map</th>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,12 @@
                 </td>
                 <td>{{ $trip->start_date }}</td>
                 <td>{{ $trip->end_date }}</td>
+                <td>
+                    <form action="{{ route('admin.trips.destroy', ['id' => $trip->id]) }}" role="form" method="post">
+                        {{ csrf_field() }}{{ method_field('DELETE') }}
+                        <button class="btn btn-sm btn-danger pull-right">Delete</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>

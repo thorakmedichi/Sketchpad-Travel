@@ -65,3 +65,6 @@ Route::prefix('/ajax')
 	Route::post('image/upload', 'FileController@imageUpload')->name('images.dropzone.upload');
 	Route::post('image/delete', 'FileController@imageDelete')->name('images.dropzone.delete');
 });
+
+
+Route::get('/test-empty-response', function() { return ''; });

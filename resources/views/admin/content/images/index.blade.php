@@ -8,9 +8,10 @@
     <table class="table table-condensed">
         <thead>
             <tr>
-                <th>Preview</th>
+                <th>Thumbnail</th>
                 <th>Name</th>
                 <th>Filename</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -23,9 +24,16 @@
                 </td>
                 <td><a href="{{ route('admin.images.edit', ['id' => $image->id]) }}">{{ $image->name }}</a></td>
                 <td>{{ $image->filename }}</td>
+                <td>
+                    <form action="{{ route('admin.images.destroy', ['id' => $image->id]) }}" role="form" method="post">
+                        {{ csrf_field() }}{{ method_field('DELETE') }}
+                        <button class="btn btn-sm btn-danger pull-right">Delete</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>
+
     </table>
 
 @endsection

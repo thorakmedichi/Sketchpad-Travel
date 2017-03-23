@@ -98,6 +98,7 @@ class MapController extends Controller
      */
     public function destroy(Map $map)
     {
-        //
+        $map->delete();
+        return redirect()->route('admin.maps.index');
     }
 }

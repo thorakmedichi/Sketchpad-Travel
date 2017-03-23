@@ -102,7 +102,8 @@ class TripController extends Controller
      */
     public function destroy(Trip $trip)
     {
-        //
+        $trip->delete();
+        return redirect()->route('admin.trips.index');
     }
 
     /**
