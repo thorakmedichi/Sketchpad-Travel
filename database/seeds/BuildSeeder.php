@@ -36,8 +36,8 @@ class BuildSeeder extends Seeder
         // Location with a blog
         DB::table('blog_relations')->insert([
             'blog_id' => '1',
-            'relation_id' => '1',
-            'type' => 'location'
+            'blog_relation_id' => '1',
+            'blog_relation_type' => 'App\Location'
         ]);
 
         DB::table('locations')->insert([
@@ -86,9 +86,9 @@ class BuildSeeder extends Seeder
         ]);
 
         DB::table('blog_relations')->insert([
-            'blog_id' => '1',
-            'relation_id' => '1',
-            'type' => 'trip'
+            'blog_id' => '2',
+            'blog_relation_id' => '1',
+            'blog_relation_type' => 'App\Trip'
         ]);
 
         DB::table('trips')->insert([

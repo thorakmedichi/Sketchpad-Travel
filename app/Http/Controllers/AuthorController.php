@@ -67,7 +67,7 @@ class AuthorController extends Controller
     {
         $data = [
             'author' => $author,
-            'action' => 'create'
+            'action' => 'edit'
         ];
         return view('admin.content.authors.create', $data);
     }

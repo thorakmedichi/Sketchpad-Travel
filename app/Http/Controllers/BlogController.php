@@ -27,7 +27,11 @@ class BlogController extends Controller
      */
     public function create()
     {   
-        return view('admin.content.blogs.create', ['blog' => null]);
+        $data = [
+            'blgo' => null,
+            'action' => 'create'
+        ];
+        return view('admin.content.blogs.create', $data);
     }
 
     /**
@@ -62,9 +66,11 @@ class BlogController extends Controller
     public function edit(Blog $blog)
     {
         $data = [
-            'blog' => $blog
+            'blog' => $blog,
+            'action' => 'edit'
         ];
-
+pre_r ($blog->Locations, true);
+pre_r ($blog->Trips, true);
         return view('admin.content.blogs.create', $data);
     }
 

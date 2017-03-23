@@ -12,16 +12,12 @@ class Blog extends Model
     	return $this->belongsTo(Author::class);
     }
 
-    public function Location(){
+    public function Locations(){
     	return $this->morphedByMany(Location::class, 'blog_relation');
     }
 
-    public function Trip(){
+    public function Trips(){
     	return $this->morphedByMany(Trip::class, 'blog_relation');
-    }
-
-    public function Relation(){
-        return $blogRelation = BlogRelation::where('blog_id', $this->id)->first();
     }
 
     public static function getSelectOptions(){
