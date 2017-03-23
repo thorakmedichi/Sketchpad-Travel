@@ -26,8 +26,12 @@ class AuthorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.content.authors.create');
+    {   
+        $data = [
+            'author' => null,
+            'action' => 'create'
+        ];
+        return view('admin.content.authors.create', $data);
     }
 
     /**
@@ -62,7 +66,8 @@ class AuthorController extends Controller
     public function edit(Author $author)
     {
         $data = [
-            'authors' => $author
+            'author' => $author,
+            'action' => 'create'
         ];
         return view('admin.content.authors.create', $data);
     }

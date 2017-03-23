@@ -277,10 +277,10 @@ class FastForms {
      */
     public static function formSelect($name, $label, $icon, $options=[], $errors, $values=[], $multiple=false){
         // Check if $values is a string or array. If string make it an array
-        if (is_string($values)){
+        if (!is_array($values)){
             $values = [$values];
         }
-        
+
         $optionList = '<option value="">Select a '. $label .'</option>';
 
         foreach ($options as $val => $option) {
