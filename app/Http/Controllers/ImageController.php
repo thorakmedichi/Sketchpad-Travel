@@ -39,7 +39,7 @@ class ImageController extends Controller
      */
     public function store(ImageRequest $request)
     {
-        Image::firstOrCreate($request->except('_token'));
+        Image::firstOrCreate($request->except('_token', '_method'));
         return redirect()->route('admin.images.index');
     }
 

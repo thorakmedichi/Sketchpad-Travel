@@ -43,7 +43,7 @@ class LocationController extends Controller
      */
     public function store(LocationRequest $request)
     {
-        Location::firstOrCreate($request->except('_token'));
+        Location::firstOrCreate($request->except('_token', '_method'));
         return redirect()->route('admin.locations.index');
     }
 
@@ -83,7 +83,7 @@ class LocationController extends Controller
      */
     public function update(LocationRequest $request, Location $location)
     {
-        $location->update($request->except('_token'));
+        $location->update($request->except('_token', '_method'));
         return redirect()->route('admin.locations.index');
     }
 

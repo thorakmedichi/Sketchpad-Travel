@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Blog;
 use Illuminate\Http\Request;
+use App\Http\Requests\BlogRequest;
 
 class BlogController extends Controller
 {
@@ -28,7 +29,7 @@ class BlogController extends Controller
     public function create()
     {   
         $data = [
-            'blgo' => null,
+            'blog' => null,
             'action' => 'create'
         ];
         return view('admin.content.blogs.create', $data);
@@ -42,7 +43,11 @@ class BlogController extends Controller
      */
     public function store(BlogRequest $request)
     {
-        Blog::firstOrCreate($request->except('_token'));
+        $blog = Blog::firstOrCreate($request->except('_token', '_method', 'locations', 'trips'));
+
+        $this->attachTrips($request, $blog);
+        $this->attachLocations($request, $blog);
+
         return redirect()->route('admin.blogs.index');
     }
 
@@ -67,7 +72,7 @@ class BlogController extends Controller
     {
         $data = [
             'blog' => $blog,
-            'action' => 'edit'
+            'action' => 'edit' // Could also be done like this: explode('@', \Route::currentRouteAction())[1]
         ];
         return view('admin.content.blogs.create', $data);
     }
@@ -81,7 +86,11 @@ class BlogController extends Controller
      */
     public function update(BlogRequest $request, Blog $blog)
     {
-        Blog::update($request->except('_token'));
+        $blog->update($request->except('_token', '_method', 'locations', 'trips'));
+
+        $this->attachTrips($request, $blog);
+        $this->attachLocations($request, $blog);
+
         return redirect()->route('admin.blogs.index');
     }
 
@@ -94,5 +103,21 @@ class BlogController extends Controller
     public function destroy(Blog $blog)
     {
         //
+    }
+
+    private function attachTrips(Request $request, Blog $blog){
+        $trips = [];
+        if (!empty($request->input('trips'))){
+            $trips = $request->input('trips');
+        }
+        $blog->Trips()->sync($trips);
+    }
+
+    private function attachLocations(Request $request, Blog $blog){
+        $locations = [];
+        if (!empty($request->input('locations'))){
+            $locations = $request->input('locations');
+        }
+        $blog->Locations()->sync($locations);
     }
 }

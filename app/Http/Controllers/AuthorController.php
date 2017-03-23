@@ -42,7 +42,7 @@ class AuthorController extends Controller
      */
     public function store(AuthorRequest $request)
     {
-        Author::firstOrCreate($request->except('_token'));
+        Author::firstOrCreate($request->except('_token', '_method'));
         return redirect()->route('admin.authors.index');
     }
 
