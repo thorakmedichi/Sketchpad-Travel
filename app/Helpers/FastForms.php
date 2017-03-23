@@ -279,7 +279,7 @@ class FastForms {
         $optionList = '<option value="">Select a '. $label .'</option>';
 
         foreach ($options as $val => $option) {
-            $optionList .= '<option value="'. $val .'" '. (old($name) == $val || in_array($val, $values) ? "selected" : "") .'>'. $option .'</option>';
+            $optionList .= '<option value="'. $val .'" '. ((old($name) == $val || in_array($val, !empty($values) ? $values : [])) ? "selected" : "") .'>'. $option .'</option>';
         }
 
         $input = '<select id="'. $name .'" name="'. $name .'" class="selectpicker" '. ($multiple ? 'multiple' : '') .' data-live-search="true" data-width="fit" data-size="20">

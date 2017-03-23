@@ -18,6 +18,7 @@ class TripController extends Controller
         $data = [
             'trips' => Trip::get()
         ];
+
         return view('admin.content.trips.index', $data);
     }
 

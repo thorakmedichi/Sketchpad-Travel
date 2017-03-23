@@ -44,15 +44,20 @@
             $(function(){
                 initGoogleMapsObject();
 
-                @if (!empty($trip->Map))
-                    @foreach ($trips as $trip)
+                @foreach ($trips as $trip)
+                    @if (!empty($trip->Map))
                         googleMaps.initMap('map-{{ $trip->id }}');
 
-                        //googleMaps['map-{{ $trip->id }}'].setCenter({!! $trip->Map->center !!});
-                        //googleMaps['map-{{ $trip->id }}'].setZoom({!! $trip->Map->zoom !!});
-                        googleMaps['map-{{ $trip->id }}'].fitBounds({!! $trip->Map->bounds !!});
-                    @endforeach
-                @endif
+                        googleMaps.zoomToBounds(googleMaps['map-{{ $trip->id }}'], {!! $trip->Map->bounds !!});
+                        
+                        @if (!empty($trip->Map->kml_filename))
+                            googleMaps.displayKml(googleMaps['map-{{ $trip->id }}'], '{{ Storage::disk('s3')->url($trip->Map->kml_filename) }}');
+                        @else
+                            googleMaps.drawBounds(googleMaps['map-{{ $trip->id }}'], {!! $trip->Map->bounds !!});
+                        @endif
+
+                    @endif
+                @endforeach
             });
         }
     </script>
