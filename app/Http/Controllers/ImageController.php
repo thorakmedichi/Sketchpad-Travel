@@ -28,7 +28,11 @@ class ImageController extends Controller
      */
     public function create()
     {   
-        return view('admin.content.images.create', ['image' => null]);
+        $data = [
+            'image' => null,
+            'action' => 'create'
+        ];
+        return view('admin.content.images.create', $data);
     }
 
     /**
@@ -63,7 +67,8 @@ class ImageController extends Controller
     public function edit(Image $image)
     {
         $data = [
-            'image' => $image
+            'image' => $image,
+            'action' => 'create'
         ];
 
         return view('admin.content.images.create', $data);
@@ -78,7 +83,7 @@ class ImageController extends Controller
      */
     public function update(ImageRequest $request, Image $image)
     {
-        Image::update($request->except('_token'));
+        Image::update($request->except('_token', '_method'));
         return redirect()->route('admin.images.index');
     }
 

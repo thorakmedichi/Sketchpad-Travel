@@ -46,11 +46,7 @@ class TripController extends Controller
     {   
         $trip = Trip::firstOrCreate($request->except(['_token', '_method', 'locations']));
 
-        $locations = [];
-        if (!empty($request->input('locations'))){
-            $locations = $request->input('locations');
-        }
-        $trip->Locations()->sync($locations);
+        $this->attachLocations($request, $trip);
 
         return redirect()->route('admin.trips.index');
     }
@@ -91,13 +87,10 @@ class TripController extends Controller
      */
     public function update(TripRequest $request, Trip $trip)
     {   
-        $locations = [];
-        if (!empty($request->input('locations'))){
-            $locations = $request->input('locations');
-        }
-        $trip->Locations()->sync($locations);
-
         $trip->update($request->except(['_token', '_method', 'locations']));
+
+        $this->attachLocations($request, $trip);
+
         return redirect()->route('admin.trips.index');
     }
 
@@ -110,5 +103,19 @@ class TripController extends Controller
     public function destroy(Trip $trip)
     {
         //
+    }
+
+    /**
+     * Attach polymorphic relations to Location
+     * @param     Request    $request    The request object
+     * @param     Trip       $trip       The Trip model
+     * @return    null                 
+     */
+    private function attachLocations(Request $request, Trip $trip){
+        $locations = [];
+        if (!empty($request->input('locations'))){
+            $locations = $request->input('locations');
+        }
+        $trip->Locations()->sync($locations);
     }
 }

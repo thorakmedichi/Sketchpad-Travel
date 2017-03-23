@@ -105,6 +105,12 @@ class BlogController extends Controller
         //
     }
 
+    /**
+     * Attach polymorphic relations to Trip
+     * @param     Request    $request    The request object
+     * @param     Blog       $blog       The Blog model
+     * @return    null                 
+     */
     private function attachTrips(Request $request, Blog $blog){
         $trips = [];
         if (!empty($request->input('trips'))){
@@ -113,6 +119,12 @@ class BlogController extends Controller
         $blog->Trips()->sync($trips);
     }
 
+    /**
+     * Attach polymorphic relations to Location
+     * @param     Request    $request    The request object
+     * @param     Blog       $blog       The Blog model
+     * @return    null                 
+     */
     private function attachLocations(Request $request, Blog $blog){
         $locations = [];
         if (!empty($request->input('locations'))){
