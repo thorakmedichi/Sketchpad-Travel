@@ -24,4 +24,5 @@ class Image extends Model
     public static function getSelectOptions(){
         return self::orderBy('name')->pluck('name', 'id');
     }
+
 }

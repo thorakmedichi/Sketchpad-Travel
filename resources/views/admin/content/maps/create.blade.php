@@ -87,7 +87,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '{{ route('ajax.maps.dropzone.delete') }}',
-                    data: {map_id: '{{ !empty($map->id) ? $map->id : null }}', filename: filenameField.value, _token: Laravel.csrfToken},
+                    data: {id: '{{ !empty($map->id) ? $map->id : null }}', filename: filenameField.value, _token: Laravel.csrfToken},
                     dataType: 'json'
                 }).done(function(response){
                     filenameField.value = '';

@@ -21,7 +21,7 @@
                         <img src="{{ Storage::disk('s3')->url($image->filename) }}" class="image-thumbnail"/>
                     </a>
                 </td>
-                <td>{{ $image->name }}</td>
+                <td><a href="{{ route('admin.images.edit', ['id' => $image->id]) }}">{{ $image->name }}</a></td>
                 <td>{{ $image->filename }}</td>
             </tr>
             @endforeach

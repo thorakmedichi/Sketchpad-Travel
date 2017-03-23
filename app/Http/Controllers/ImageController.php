@@ -68,7 +68,7 @@ class ImageController extends Controller
     {
         $data = [
             'image' => $image,
-            'action' => 'create'
+            'action' => 'edit'
         ];
 
         return view('admin.content.images.create', $data);
@@ -83,7 +83,7 @@ class ImageController extends Controller
      */
     public function update(ImageRequest $request, Image $image)
     {
-        Image::update($request->except('_token', '_method'));
+        $image->update($request->except('_token', '_method'));
         return redirect()->route('admin.images.index');
     }
 

@@ -24,13 +24,13 @@
                                         <span class="input-group-addon"><i class="fa fa-file fa-lg"></i></span>
                                         <input type="text" id="filename" name="filename" value="'. old('filename', (!empty($image->filename) ? $image->filename : '')) .'" readonly="true" class="form-control">
                                     </div>
-                                    <a href="#" id="removeFile" class="btn btn-sm btn-danger">Remove</a>
                                 </div>
                             </div>
-                        </div>
+                        </div>'.
+                        ( !empty($image->filename) ? ('
                         <div class="image-preview-container">
                             <img src="'. (!empty($image->filename) ? Storage::disk('s3')->url($image->filename) : '') .'" class="image-preview" />
-                        </div>
+                        </div>') : '' ) .'
                         <hr/>',
             ]
         ]) 
@@ -48,7 +48,7 @@
                 maxFilesize: 8, // MB
                 acceptedFiles: '.png, .jpg',
                 paramName: 'image_file',
-                addRemoveLinks: true,
+                addRemoveLinks: false,
                 dictDefaultMessage: '<h3>Click or drag files here to upload</h3><p>Please note that you can only upload one file. Also, if you have an existing file with this same name it will be deleted.</p>',
                 headers: {
                     'X-CSRF-Token': Laravel.csrfToken
@@ -75,17 +75,13 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '{{ route('ajax.maps.dropzone.delete') }}',
-                    data: {map_id: '{{ !empty($map->id) ? $map->id : null }}', filename: filenameField.value, _token: Laravel.csrfToken},
+                    url: '{{ route('ajax.images.dropzone.delete') }}',
+                    data: {id: '{{ !empty($image->id) ? $image->id : null }}', filename: filenameField.value, _token: Laravel.csrfToken},
                     dataType: 'json'
                 }).done(function(response){
                     filenameField.value = '';
                     kmlDropzone.removeAllFiles( true );
                 });
-            }
-
-            document.getElementById('removeFile').onclick = function(){
-                removeFile();
             }
         });
 

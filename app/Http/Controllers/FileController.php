@@ -9,6 +9,16 @@ use \Exception;
 
 class FileController extends Controller
 {   
+
+    public function imageUpload(Request $request){
+        return $this->fileUpload($request, 'image_file', 'images');
+    }
+
+    public function kmlUpload(Request $request){
+        return $this->fileUpload($request, 'kml_file', 'kml');
+    }
+
+
     public function deleteS3File($s3Name){
         try {
             if (Storage::disk('s3')->exists($s3Name)){
@@ -44,16 +54,8 @@ class FileController extends Controller
         }
     }
 
-    public function imageUpload(Request $request){
-        return $this->fileUpload($request, 'image_file', 'images');
-    }
-
-    public function kmlUpload(Request $request){
-        return $this->fileUpload($request, 'kml_file', 'kml');
-    }
-
-    public function kmlDelete(Request $request){
-        $mapId = $request->input('map_id');
+    public function fileDelete(Request $request, $model){
+        $id = $request->input('id');
         $s3Name = $request->input('filename');
         $s3Status = 'unknown';
         $dbStatus = 'unknown';
@@ -63,7 +65,7 @@ class FileController extends Controller
                 $s3Status = $s3Name .' removed from s3';
             }
 
-            if (\App\Map::deleteFilenameFromDb($mapId, $s3Name)){
+            if ($model::deleteFilenameFromDb($id, $s3Name)){
                 $dbStatus = $s3Name .' removed from database';
             }
         } 
@@ -77,5 +79,13 @@ class FileController extends Controller
             's3Status' => $s3Status,
             'dbStatus' => $dbStatus
         ], 200);
+    }
+
+    public function imageDelete(Request $request){
+        return $this->deleteS3File($request->input('filename'));
+    }
+
+    public function kmlDelete(Request $request){
+        return $this->fileDelete($request, '\App\Map');
     }
 }
