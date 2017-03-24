@@ -236,6 +236,39 @@
                                 <li class="list-divider"></li>
                             </ul>
                         </li>
+
+                        <!-- Tags -->
+                        <li>
+                            <a href="{{ route('admin.tags.index') }}">
+                                <i class="fa fa-tags"></i>
+                                <span class="menu-title">
+                                    <strong>Authors</strong>
+                                </span>
+                                <i class="arrow"></i>
+                            </a>
+                            <!--Submenu-->
+                            <ul class="collapse in">
+                                <li>
+                                    <a href="{{ route('admin.tags.index') }}">
+                                        <i class="fa fa-eye"></i>
+                                        <span class="menu-title">
+                                            <strong>View all</strong>
+                                        </span>
+                                        <i class="arrow"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('admin.tags.create') }}">
+                                        <i class="fa fa-pencil"></i>
+                                        <span class="menu-title">
+                                            <strong>Create</strong>
+                                        </span>
+                                        <i class="arrow"></i>
+                                    </a>
+                                </li>
+                                <li class="list-divider"></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>

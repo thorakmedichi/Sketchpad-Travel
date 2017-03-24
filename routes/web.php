@@ -44,6 +44,7 @@ Route::prefix('/admin')
 		Route::resource('/trips', 'TripController');
 		Route::resource('/maps', 'MapController');
 		Route::resource('/images', 'ImageController');
+		Route::resource('/tags', 'TagController');
 
 });
 
