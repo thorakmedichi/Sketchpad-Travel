@@ -9,15 +9,19 @@ class Blog extends Model
     protected $guarded = ['id'];
 
     public function Author(){
-    	return $this->belongsTo(Author::class);
+        return $this->belongsTo(Author::class);
     }
 
     public function Locations(){
-    	return $this->morphedByMany(Location::class, 'blog_relation');
+        return $this->morphedByMany(Location::class, 'blog_relation');
     }
 
     public function Trips(){
-    	return $this->morphedByMany(Trip::class, 'blog_relation');
+        return $this->morphedByMany(Trip::class, 'blog_relation');
+    }
+
+    public function Tags(){
+        return $this->morphToMany(Tag::class, 'tag_relation');
     }
 
     public static function getSelectOptions(){

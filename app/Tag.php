@@ -8,16 +8,20 @@ class Tag extends Model
 {
     protected $guarded = ['id'];
 
-    public function Author(){
-        return $this->belongsTo(Author::class);
-    }
-
     public function Locations(){
-        return $this->morphedByMany(Location::class, 'blog_relation');
+        return $this->morphedByMany(Location::class, 'tag_relation');
     }
 
     public function Trips(){
-        return $this->morphedByMany(Trip::class, 'blog_relation');
+        return $this->morphedByMany(Trip::class, 'tag_relation');
+    }
+
+    public function Blogs(){
+        return $this->morphedByMany(Blog::class, 'tag_relation');
+    }
+
+    public function Images(){
+        return $this->morphedByMany(Image::class, 'tag_relation');
     }
 
     public static function getSelectOptions(){
