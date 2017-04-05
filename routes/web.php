@@ -38,6 +38,7 @@ Route::prefix('/admin')
 		Route::name('dashboard')
 			->get('/', function(){  });
 
+		Route::resource('/post', 'PostController');
 		Route::resource('/authors', 'AuthorController');
 		Route::resource('/blogs', 'BlogController');
 		Route::resource('/locations', 'LocationController');

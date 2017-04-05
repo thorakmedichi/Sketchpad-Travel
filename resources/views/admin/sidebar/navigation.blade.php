@@ -28,7 +28,7 @@
 
                         <!-- New Entry -->
                         <li>
-                            <a href="{{ route('admin.authors.index') }}">
+                            <a href="{{ route('admin.post.index') }}">
                                 <i class="fa fa-plus"></i>
                                 <span class="menu-title">
                                     <strong>New Entry</strong>
