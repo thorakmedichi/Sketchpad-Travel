@@ -13,6 +13,11 @@ require('bootstrap-sass');
 
 
 /**
+ * Load our custom javascript vendor libraries
+ */
+//require('./vendor/nifty.js');
+
+/**
  * We'll load Dropzone to create a nicer user interface for handling
  * file uploads
  */
