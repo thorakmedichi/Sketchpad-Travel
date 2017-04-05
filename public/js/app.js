@@ -11661,14 +11661,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
         console.log('Component mounted.');
+    },
+    data: function data() {
+        return {
+            message: 'You loaded this page on ' + new Date()
+        };
     }
 });
-
-console.log('really');
 
 /***/ }),
 /* 30 */
@@ -33074,8 +33082,6 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
   }, [_c('div', {
@@ -33086,8 +33092,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel-heading"
   }, [_vm._v("Example Component")]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }, [_vm._v("\n                I'm an example component!\n            ")])])])])
-}]}
+  }, [_c('span', {
+    attrs: {
+      "title": _vm.message
+    }
+  }, [_vm._v("\n                    Hover your mouse over me for a few seconds\n                    to see my dynamically bound title!\n                ")])])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
