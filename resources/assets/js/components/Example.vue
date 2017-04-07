@@ -1,16 +1,13 @@
 <template>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Example Component</div>
-
+                <div class="panel-heading">
+                    <h3 class="panel-title pull-left">New Post</h3>
+                </div>
                 <div class="panel-body">
 
-                    <span v-bind:title="message">
-                        Hover your mouse over me for a few seconds
-                        to see my dynamically bound title!
-                    </span>
-
+                
                 </div>
             </div>
         </div>

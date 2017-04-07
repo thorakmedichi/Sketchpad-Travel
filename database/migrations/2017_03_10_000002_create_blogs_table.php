@@ -15,6 +15,7 @@ class CreateBlogsTable extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('author_id')->unsigned();
+            $table->integer('image_id')->unsigned();
             $table->enum('status', ['published', 'draft'])->nullable();
             $table->string('title', 255);
             $table->text('excerpt')->nullable();
@@ -23,6 +24,7 @@ class CreateBlogsTable extends Migration
             $table->softDeletes();
 
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade')->onUpdate('cascade'); // When author is deleted delete all blogs owned by them
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('restrict')->onUpdate('cascade'); // When images is deleted prevent deletion until user changes blog image_id to something else
         });
 
         
