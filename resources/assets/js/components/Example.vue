@@ -7,7 +7,10 @@
                 </div>
                 <div class="panel-body">
 
-                
+                    <inputWrapper label="My Label" icon="fa-user">
+                        <textInput v-validate="'required|email'" @input="textInputChange" name="test" placeholder="Edit me"></textInput>
+                    </inputWrapper>
+
                 </div>
             </div>
         </div>
@@ -16,13 +19,15 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.');
-        }, 
-
         data(){
             return {
-                message: 'You loaded this page on ' + new Date()
+            }
+        }, 
+
+        methods: {
+            textInputChange: function (value){
+                console.log (value);
+                console.log (this.$validator.errorBag.errors);
             }
         }
     }

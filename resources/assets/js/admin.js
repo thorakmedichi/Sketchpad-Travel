@@ -14,7 +14,11 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.use(VeeValidate);
+
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('inputWrapper', require('./components/InputWrapper.vue'));
+Vue.component('textInput', require('./components/TextInput.vue'));
 
 const app = new Vue({
     el: '#app'
