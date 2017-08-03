@@ -16,11 +16,9 @@ require('./bootstrap');
 
 Vue.use(VeeValidate);
 
-Vue.component('example', require('./components/Example.vue'));
-Vue.component('inputWrapper', require('./components/InputWrapper.vue'));
-Vue.component('textInput', require('./components/TextInput.vue'));
+Vue.component('panel', require('./components/panel.vue'));
 
-const app = new Vue({
-    el: '#app'
+const post = new Vue({
+    el: '#post'
 });
 

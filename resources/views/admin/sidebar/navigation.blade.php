@@ -15,7 +15,7 @@
             
                         <!--Menu list item-->
                         <li>
-                            <a href="{{ url('/') }}">
+                            <a href="{{ route('admin.dashboard') }}">
                                 <i class="fa fa-dashboard"></i>
                                 <span class="menu-title">
                                     <strong>Dashboard</strong>
@@ -242,7 +242,7 @@
                             <a href="{{ route('admin.tags.index') }}">
                                 <i class="fa fa-tags"></i>
                                 <span class="menu-title">
-                                    <strong>Authors</strong>
+                                    <strong>Tags</strong>
                                 </span>
                                 <i class="arrow"></i>
                             </a>

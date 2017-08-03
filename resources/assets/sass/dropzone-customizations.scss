@@ -1,7 +1,8 @@
 /**
  * DROPZONE
  */
-.dropzone {
+.dropzone, 
+#kml-dropzone {
     min-height: 100px;
     border: 1px dashed red;
     padding: 10px;
@@ -16,6 +17,11 @@
     background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=0 );
 
+    .dz-success-mark,
+    .dz-error-mark {
+        display: none;
+    }
+
     .dz-preview {
         position: relative;
         display: inline-block;
@@ -24,6 +30,8 @@
         min-height: 80px;
 
         &.dz-file-preview {
+            position: relative;
+
             .dz-image {
                 border-radius: 10px;
                 background: rgba(212,228,239,1);
@@ -34,6 +42,34 @@
                 background: -ms-linear-gradient(top, rgba(212,228,239,1) 0%, rgba(134,174,204,1) 100%);
                 background: linear-gradient(to bottom, rgba(212,228,239,1) 0%, rgba(134,174,204,1) 100%);
                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4e4ef', endColorstr='#86aecc', GradientType=0 );
+            }
+
+            &.dz-complete {
+                &.dz-success {
+                    .dz-success-mark {
+                        pointer-events: none;
+                        z-index: 500;
+                        position: absolute;
+                        display: block;
+                        top: 50px;
+                        left: 50%;
+                        margin-left: -27px;
+                        margin-top: -27px;
+                    }
+                }
+
+                &.dz-error {
+                    .dz-error-mark {
+                        pointer-events: none;
+                        z-index: 500;
+                        position: absolute;
+                        display: block;
+                        top: 50px;
+                        left: 50%;
+                        margin-left: -27px;
+                        margin-top: -27px;     
+                    }
+                }
             }
         }
 
@@ -51,6 +87,9 @@
 
         .dz-progress {
             .dz-upload {
+                display: block;
+                height: 10px;
+                width: 0%;
                 background: rgba(76,76,76,1);
                 background: -moz-linear-gradient(top, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 25%, rgba(71,71,71,1) 39%, rgba(44,44,44,1) 50%, rgba(0,0,0,1) 51%, rgba(17,17,17,1) 60%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%);
                 background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(76,76,76,1)), color-stop(12%, rgba(89,89,89,1)), color-stop(25%, rgba(102,102,102,1)), color-stop(39%, rgba(71,71,71,1)), color-stop(50%, rgba(44,44,44,1)), color-stop(51%, rgba(0,0,0,1)), color-stop(60%, rgba(17,17,17,1)), color-stop(76%, rgba(43,43,43,1)), color-stop(91%, rgba(28,28,28,1)), color-stop(100%, rgba(19,19,19,1)));

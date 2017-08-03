@@ -333,6 +333,17 @@ class FastForms {
         echo '<form action="'. $action .'" class="dropzone" id="'. $id .'" enctype="multipart/form-data">'. csrf_field() .'</form>';
     }
 
+    public static function divDropzone($id){
+        $output = '<div id="'. $id .'">';
+        // $output .= '<div class="progress">
+        //                 <div class="progress-bar progress-bar-primary" role="progressbar" data-dz-uploadprogress>
+        //                     <span class="progress-text"></span>
+        //                 </div>
+        //             </div>';
+        $output .= '</div>';
+        echo $output;
+    }
+
     /**
      * HTML Checkbox input
      * @param     string    $name           The name of the field (also used as the id)

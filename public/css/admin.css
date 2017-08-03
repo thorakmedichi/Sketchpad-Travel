@@ -18028,7 +18028,8 @@ a.list-group-item-dark:hover, a.list-group-item-dark:focus {
 /**
  * DROPZONE
  */
-.dropzone {
+.dropzone,
+#kml-dropzone {
   min-height: 100px;
   border: 1px dashed red;
   padding: 10px;
@@ -18040,7 +18041,15 @@ a.list-group-item-dark:hover, a.list-group-item-dark:focus {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=0 );
 }
 
-.dropzone .dz-preview {
+.dropzone .dz-success-mark,
+.dropzone .dz-error-mark,
+#kml-dropzone .dz-success-mark,
+#kml-dropzone .dz-error-mark {
+  display: none;
+}
+
+.dropzone .dz-preview,
+#kml-dropzone .dz-preview {
   position: relative;
   display: inline-block;
   vertical-align: top;
@@ -18048,7 +18057,13 @@ a.list-group-item-dark:hover, a.list-group-item-dark:focus {
   min-height: 80px;
 }
 
-.dropzone .dz-preview.dz-file-preview .dz-image {
+.dropzone .dz-preview.dz-file-preview,
+#kml-dropzone .dz-preview.dz-file-preview {
+  position: relative;
+}
+
+.dropzone .dz-preview.dz-file-preview .dz-image,
+#kml-dropzone .dz-preview.dz-file-preview .dz-image {
   border-radius: 10px;
   background: #d4e4ef;
   background: -webkit-gradient(left top, left bottom, color-stop(0%, #d4e4ef), color-stop(100%, #86aecc));
@@ -18057,19 +18072,49 @@ a.list-group-item-dark:hover, a.list-group-item-dark:focus {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4e4ef', endColorstr='#86aecc', GradientType=0 );
 }
 
-.dropzone .dz-preview .dz-image {
+.dropzone .dz-preview.dz-file-preview.dz-complete.dz-success .dz-success-mark,
+#kml-dropzone .dz-preview.dz-file-preview.dz-complete.dz-success .dz-success-mark {
+  pointer-events: none;
+  z-index: 500;
+  position: absolute;
+  display: block;
+  top: 50px;
+  left: 50%;
+  margin-left: -27px;
+  margin-top: -27px;
+}
+
+.dropzone .dz-preview.dz-file-preview.dz-complete.dz-error .dz-error-mark,
+#kml-dropzone .dz-preview.dz-file-preview.dz-complete.dz-error .dz-error-mark {
+  pointer-events: none;
+  z-index: 500;
+  position: absolute;
+  display: block;
+  top: 50px;
+  left: 50%;
+  margin-left: -27px;
+  margin-top: -27px;
+}
+
+.dropzone .dz-preview .dz-image,
+#kml-dropzone .dz-preview .dz-image {
   border-radius: 10px;
   width: 100px;
   height: 100px;
 }
 
-.dropzone .dz-preview .dz-details {
+.dropzone .dz-preview .dz-details,
+#kml-dropzone .dz-preview .dz-details {
   font-size: 10px;
   padding: 2em 0.5em;
   color: black;
 }
 
-.dropzone .dz-preview .dz-progress .dz-upload {
+.dropzone .dz-preview .dz-progress .dz-upload,
+#kml-dropzone .dz-preview .dz-progress .dz-upload {
+  display: block;
+  height: 10px;
+  width: 0%;
   background: #4c4c4c;
   background: -webkit-gradient(left top, left bottom, color-stop(0%, #4c4c4c), color-stop(12%, #595959), color-stop(25%, #666666), color-stop(39%, #474747), color-stop(50%, #2c2c2c), color-stop(51%, black), color-stop(60%, #111111), color-stop(76%, #2b2b2b), color-stop(91%, #1c1c1c), color-stop(100%, #131313));
   background: -webkit-linear-gradient(top, #4c4c4c 0%, #595959 12%, #666666 25%, #474747 39%, #2c2c2c 50%, black 51%, #111111 60%, #2b2b2b 76%, #1c1c1c 91%, #131313 100%);
@@ -18077,7 +18122,8 @@ a.list-group-item-dark:hover, a.list-group-item-dark:focus {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313', GradientType=0 );
 }
 
-.dropzone .dz-preview .dz-remove {
+.dropzone .dz-preview .dz-remove,
+#kml-dropzone .dz-preview .dz-remove {
   font-size: 11px;
   line-height: 1.5;
   padding: 3px 5px;

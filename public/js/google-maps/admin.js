@@ -70,7 +70,7 @@ var initGoogleMapsObject = function(){
             position: location,
             icon: icon,
             draggable: draggable
-        })
+        });
 
         // Add the maker to the map and key it to the geo location
         googleMaps.markers.push({location: location, marker: marker});

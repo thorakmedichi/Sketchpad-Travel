@@ -35,8 +35,7 @@ Route::prefix('/admin')
 	->middleware('auth')
 	->group(function(){
 
-		Route::name('dashboard')
-			->get('/', function(){  });
+		Route::get('/', 'DashboardController@index')->name('dashboard');
 
 		Route::resource('/post', 'PostController');
 		Route::resource('/authors', 'AuthorController');

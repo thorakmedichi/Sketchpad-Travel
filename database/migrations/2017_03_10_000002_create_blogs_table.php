@@ -16,7 +16,8 @@ class CreateBlogsTable extends Migration
             $table->increments('id');
             $table->integer('author_id')->unsigned();
             $table->integer('image_id')->unsigned();
-            $table->enum('status', ['published', 'draft'])->nullable();
+            $table->enum('type', ['full', 'gallery', 'text'])->default('full')->nullable();
+            $table->enum('status', ['published', 'draft'])->default('draft')->nullable();
             $table->string('title', 255);
             $table->text('excerpt')->nullable();
             $table->longText('content')->nullable();

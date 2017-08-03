@@ -5,6 +5,10 @@
 
 @section('content')
     
-    <div id="app"><example></example></div>
+    <div id="post">
+        <panel title="Location">
+            <p>Some content</p>
+        </panel>
+    </div>
 
 @endsection

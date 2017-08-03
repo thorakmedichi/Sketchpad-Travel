@@ -12,7 +12,7 @@
         <small>Uploading a file will save your file on your S3 server but will not save this map itself. Remember to add a name and then "Create" the map</small>
     </div>
 
-    {{ App\Sketchpad\FastForms::formDropzone('kml-dropzone', route('ajax.maps.dropzone.upload')) }}
+    {{ App\Sketchpad\FastForms::divDropzone('kml-dropzone') }}
 
     <?php 
         App\Sketchpad\FastForms::generate([
@@ -56,6 +56,7 @@
 
         $(function(){
             var kmlDropzone = new Dropzone('#kml-dropzone', {
+                url: '{{ route('ajax.maps.dropzone.upload') }}',
                 maxFiles: 1,
                 maxFilesize: 8, // MB
                 acceptedFiles: '.kml',
@@ -68,6 +69,7 @@
                 init: function(){
                     this.on('success', function(file, response){
                         displayKml(response.s3Name);
+                        $('input[name="name"]').focus();
                     });
 
                     this.on('removedfile', function(file, response){
@@ -78,7 +80,14 @@
                         console.log (response);
                         console.log (xhr);
                     });
-                }
+                },
+                // uploadprogress: function(file, progress, bytesSent) {
+                //     if (file.previewElement) {
+                //         var progressElement = file.previewElement.querySelector("[data-dz-uploadprogress]");
+                //         progressElement.style.width = progress + "%";
+                //         progressElement.querySelector(".progress-text").textContent = progress + "%";
+                //     }
+                // }
             });
 
             var removeKml = function removeKml(){
