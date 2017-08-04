@@ -12,12 +12,13 @@ const { mix } = require('laravel-mix');
  */
 
 mix.copy('node_modules/font-awesome/fonts', 'resources/assets/fonts')
-   .copy('node_modules/font-awesome/fonts', 'public/fonts')
-   .js('resources/assets/js/app.js', 'public/js')
-   .js('resources/assets/js/admin.js', 'public/js')
-   .scripts(['resources/assets/js/custom/google-maps.js',
-             'resources/assets/js/custom/google-maps-integrations.js'
-            ], 'public/js/google-maps/admin.js')
-   .sass('resources/assets/sass/app.scss', 'public/css')
-   .sass('resources/assets/sass/admin.scss', 'public/css')
-   .sass('resources/assets/sass/errors.scss', 'public/css');
+   .copy('node_modules/font-awesome/fonts', 'public/fonts');
+
+mix.js('resources/assets/js/admin.js', 'public/js')
+   .js('resources/assets/js/location.js', 'public/js')
+   .scripts([
+        'resources/assets/js/custom/google-maps.js',
+        'resources/assets/js/custom/google-maps-integrations.js'
+    ],  'public/js/google-maps/admin.js');
+
+mix.sass('resources/assets/sass/admin.scss', 'public/css');

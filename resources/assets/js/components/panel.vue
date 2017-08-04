@@ -1,23 +1,27 @@
 <script>
     export default {
-        props: ['title']
+        name: 'panel',
+
+        props: ['title'],
+
+        data(){
+            return {
+
+            }
+        }
     }
 </script>
 
 <template>
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">{{ title }}</h3>
-                </div>
-                <div class="panel-body">
+    <md-card>
+        <md-card-header>
+            <h2 class="md-title">{{ title }}</h2>
+        </md-card-header>
 
-                    <slot></slot>
-                
-                </div>
-            </div>
-        </div>
-    </div>
+        <md-card-content>
+
+            <slot></slot>
+            
+        </md-card-content>
+    </md-card>
 </template>
-

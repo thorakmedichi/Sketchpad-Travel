@@ -1,8 +1,6 @@
 {
-  "/js/app.js": "/js/app.js",
-  "/css/app.css": "/css/app.css",
-  "/css/admin.css": "/css/admin.css",
-  "/css/errors.css": "/css/errors.css",
   "/js/admin.js": "/js/admin.js",
+  "/css/admin.css": "/css/admin.css",
+  "/js/location.js": "/js/location.js",
   "/js/google-maps/admin.js": "/js/google-maps/admin.js"
 }

@@ -1,6 +1,6 @@
-
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 // Variables
 @import "variables";
@@ -13,6 +13,12 @@
 
 // Nifty
 @import "./vendor/nifty/nifty.scss";
+
+// Material
+@import "~vue-material/dist/vue-material";
+
+// Custom errors
+@import "./errors.scss";
 
 // Dropzone
 @import "./dropzone-customizations.scss";

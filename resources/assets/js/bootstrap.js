@@ -30,7 +30,6 @@ window.Dropzone = require('dropzone');
  */
 
 window.Vue = require('vue');
-window.VeeValidate = require('vee-validate');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

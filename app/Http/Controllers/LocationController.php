@@ -32,7 +32,7 @@ class LocationController extends Controller
             'location' => null,
             'action' => 'create'
         ];
-        return view('admin.content.locations.create', $data);
+        return view('admin.content.locations.create-vue', $data);
     }
 
     /**
